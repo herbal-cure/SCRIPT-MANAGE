@@ -62,7 +62,7 @@
         .header-action-container {
             position: absolute;
             right: 40px;
-            top: 25px;
+            top: 18px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -73,6 +73,14 @@
             display: flex;
             gap: 8px;
             align-items: center;
+        }
+
+        .header-user-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 6px;
         }
 
         .btn-header-action {
@@ -788,6 +796,8 @@
                 <button class="btn-header-action" id="videoDashboardNavBtn" onclick="toggleVideoProductionDashboardView(true)">🎬 Ready To Video</button>
                 <button class="btn-header-action" id="managerNavBtn" onclick="showPasswordModal()">⚙️ Manager</button>
                 <button class="btn-header-action" id="trashNavBtn" onclick="toggleTrashBinWorkspaceView(true)">🗑️ Global Trash</button>
+            </div>
+            <div class="header-user-row" id="headerUserRow">
                 <span class="current-user-badge" id="currentUserBadge" style="display:none;">User</span>
                 <button class="btn-header-action" id="logoutNavBtn" onclick="logoutApp()" style="display:none;">🚪 Logout</button>
             </div>
@@ -887,6 +897,7 @@
 
         <div id="managerTrashSubTabsWrapper" style="display: none; justify-content: center; gap: 10px; margin-bottom: 20px;">
             <button class="sub-tab-link active" id="subTabMgtTrash" onclick="changeManagerTrashSubView('trash')">🗑️ Manual Trash</button>
+            <button class="sub-tab-link" id="subTabMgtAll" onclick="changeManagerTrashSubView('all')">📚 All Scripts</button>
             <button class="sub-tab-link" id="subTabMgtArchive" onclick="changeManagerTrashSubView('archive')">🗃️ Archive Logs</button>
             <button class="sub-tab-link" id="subTabMgtVideo" onclick="changeManagerTrashSubView('video')">🎬 Ready Video</button>
             <button class="sub-tab-link" id="subTabMgtGlobal" onclick="changeManagerTrashSubView('global')">⏳ Global Trash</button>
@@ -2555,6 +2566,7 @@
         function changeManagerTrashSubView(subContext) {
             managerTrashSubContext = subContext;
             document.getElementById('subTabMgtTrash').classList.toggle('active', subContext === 'trash');
+            document.getElementById('subTabMgtAll').classList.toggle('active', subContext === 'all');
             document.getElementById('subTabMgtArchive').classList.toggle('active', subContext === 'archive');
             document.getElementById('subTabMgtVideo').classList.toggle('active', subContext === 'video');
             document.getElementById('subTabMgtGlobal').classList.toggle('active', subContext === 'global');
@@ -2992,6 +3004,9 @@
             if (viewContext === 'trash') {
                 titleEl.innerText = "Manager Inner Node: Manual Trash Vault Ledger";
                 dataset = pipelineDataStore.filter(i => i.isDeleted);
+            } else if (viewContext === 'all') {
+                titleEl.innerText = "Manager Inner Node: All Scripts Master Control";
+                dataset = [...pipelineDataStore].sort((a, b) => (Number(b.sortTimestamp) || getTimestampSortValue(b.createdTimestamp) || 0) - (Number(a.sortTimestamp) || getTimestampSortValue(a.createdTimestamp) || 0));
             } else if (viewContext === 'archive') {
                 titleEl.innerText = "Manager Inner Node: System Active Archive Logs";
                 dataset = pipelineDataStore.filter(i => !i.isDeleted && !i.isExpired && !i.archiveLogPurged && i.stage === 'completed');
@@ -3067,24 +3082,16 @@
         }
 
         async function executeAuthenticatedPermanentWipeAction(id, sourceContext) {
-            let shouldDeleteDocument = false;
+            // Manager Panel Purge Forever = permanent delete from every section.
+            // Archive Logs, Ready Video, Manual Trash, Global Trash — sab jagah se same record remove hoga.
+            clearAndWipeActiveTickerThread(id);
+            pipelineDataStore = pipelineDataStore.filter(item => item.id !== id);
 
-            pipelineDataStore = pipelineDataStore.map(item => {
-                if (item.id === id) {
-                    if (sourceContext === 'archive') {
-                        item.archiveLogPurged = true;
-                    } else if (sourceContext === 'video') {
-                        item.videoLogPurged = true;
-                    } else {
-                        item.__removeCompletely = true;
-                        shouldDeleteDocument = true;
-                    }
-                }
-                return item;
-            }).filter(item => !item.__removeCompletely);
-
-            if (shouldDeleteDocument) {
-                try { await scriptsRef.doc(id).delete(); } catch (error) { console.error("Firebase delete error:", error); }
+            try {
+                await scriptsRef.doc(id).delete();
+            } catch (error) {
+                console.error("Firebase delete error:", error);
+                alert("Firebase delete error. Please check internet connection and Firestore rules.");
             }
 
             saveDemoDataStateSnapshot();
