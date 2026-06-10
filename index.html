@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enterprise Video Script Pipeline & Production Hub</title>
-    <!-- Browser Tab Icon / Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
     <style>
         :root {
             --bg-color: #f8fafc;
@@ -53,6 +50,12 @@
             font-size: 26px;
             font-weight: 800;
             letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+            max-width: calc(100% - 520px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Fixed Right Layout Alignment Area */
@@ -355,20 +358,16 @@
 
         .pipeline-action-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(85px, 1fr));
-            column-gap: 18px;
-            row-gap: 16px;
+            grid-template-columns: repeat(2, minmax(70px, 1fr));
+            gap: 8px;
             align-items: center;
             justify-content: end;
-            min-width: 220px;
-            padding-left: 10px;
+            min-width: 150px;
         }
 
         .pipeline-action-grid .btn-pro {
             width: 100%;
             text-align: center;
-            min-height: 38px;
-            padding: 8px 14px;
         }
 
         .btn-pro {
@@ -611,6 +610,25 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
+            }
+        }
+
+        @media (max-width: 1250px) {
+            header {
+                align-items: center;
+                padding-top: 24px;
+                padding-bottom: 24px;
+            }
+            .header-action-container {
+                position: static;
+                order: 3;
+                align-items: center;
+                margin-top: 2px;
+            }
+            .header-title {
+                max-width: 100%;
+                overflow: visible;
+                text-overflow: clip;
             }
         }
 
@@ -1383,6 +1401,38 @@
         function getTodayDateStringMatch() {
             return new Date().toLocaleDateString('en-IN');
         }
+        function getTimestampSortValue(timestampValue) {
+            if (!timestampValue) return 0;
+            const rawValue = String(timestampValue).trim();
+            const splitValue = rawValue.split(',');
+            const datePart = (splitValue[0] || '').trim();
+            const timePart = (splitValue[1] || '').trim().toLowerCase();
+            const datePieces = datePart.split('/').map(part => Number(part));
+            if (datePieces.length < 3 || datePieces.some(part => Number.isNaN(part))) return 0;
+
+            let day = datePieces[0];
+            let month = datePieces[1];
+            let year = datePieces[2];
+            let hour = 0;
+            let minute = 0;
+            let second = 0;
+
+            if (timePart) {
+                const timeMatch = timePart.match(/(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?\s*(am|pm)?/);
+                if (timeMatch) {
+                    hour = Number(timeMatch[1] || 0);
+                    minute = Number(timeMatch[2] || 0);
+                    second = Number(timeMatch[3] || 0);
+                    const meridian = timeMatch[4];
+                    if (meridian === 'pm' && hour < 12) hour += 12;
+                    if (meridian === 'am' && hour === 12) hour = 0;
+                }
+            }
+
+            const parsedTime = new Date(year, month - 1, day, hour, minute, second).getTime();
+            return Number.isNaN(parsedTime) ? 0 : parsedTime;
+        }
+
 
         function quickDirectCopyFromCard(id, element) {
             const target = pipelineDataStore.find(item => item.id === id);
@@ -1440,10 +1490,43 @@
 
         function executeStartEditingSequence(id) {
             const target = pipelineDataStore.find(i => i.id === id);
-            if (!target || target.isEditingCurrentlyActive || target.editStartEpoch) return;
+            if (!target) return;
+
+            if (target.isEditingCurrentlyActive === true) {
+                showModalDialogue(
+                    "Editing Already Started",
+                    "This script editing timer is already running. Please click Edit Done when the work is finished.",
+                    '',
+                    `<button class="btn-alert btn-confirm-save" onclick="dismissModalOverlay()">OK</button>`
+                );
+                return;
+            }
+
+            // Rule: multiple employees can edit at the same time, but one employee can have only one active editing session.
+            const activeSameEmployeeScript = pipelineDataStore.find(item => {
+                return item.id !== id &&
+                    !item.isDeleted &&
+                    !item.isExpired &&
+                    item.stage === 'completed' &&
+                    item.videoStage === 'pending' &&
+                    item.isEditingCurrentlyActive === true &&
+                    String(item.assignedMember || '').toLowerCase() === String(target.assignedMember || '').toLowerCase();
+            });
+
+            if (activeSameEmployeeScript) {
+                showModalDialogue(
+                    "Editing Already Running",
+                    `${target.assignedMember || 'This employee'} already has one active editing task running. Please complete that first before starting another one.`,
+                    '',
+                    `<button class="btn-alert btn-confirm-save" onclick="dismissModalOverlay()">OK</button>`
+                );
+                return;
+            }
 
             target.editStartEpoch = Date.now();
             target.editStartClockTime = getCurrentTimestamp();
+            target.editEndClockTime = null;
+            target.totalElapsedTimeFormatted = null;
             target.isEditingCurrentlyActive = true;
 
             saveDemoDataStateSnapshot();
@@ -1794,6 +1877,16 @@
                 return true;
             });
 
+            dataset.sort((a, b) => {
+                const aTime = videoViewContext === 'ready'
+                    ? getTimestampSortValue(a.videoCreatedTimestamp)
+                    : getTimestampSortValue(a.completedTimestamp);
+                const bTime = videoViewContext === 'ready'
+                    ? getTimestampSortValue(b.videoCreatedTimestamp)
+                    : getTimestampSortValue(b.completedTimestamp);
+                return (bTime || b.sortTimestamp || 0) - (aTime || a.sortTimestamp || 0);
+            });
+
             if (dataset.length === 0) {
                 videoGridContainer.innerHTML = `<div class="empty-status-text">No active data scripts located inside this queue layer subset loop.</div>`;
                 return;
@@ -1850,13 +1943,14 @@
                 let actionsContainerMarkup = `${copyBtnMarkup} <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">View</button>`;
 
                 if (item.videoStage === 'pending') {
-                    // Check button interactive states parameters constraints rules validation
-                    const clickHasAlreadyOccurred = (item.editStartEpoch !== null);
-                    const isDoneActionAllowed = item.isEditingCurrentlyActive;
-
-                    // Disable start button styling if clicked once already to prevent double actions execution loop resets
-                    const startButtonDisabledAttribute = clickHasAlreadyOccurred ? 'disabled style="opacity:0.5; cursor:not-allowed;" title="Session already initialized"' : '';
-                    const startActionTriggerHTML = clickHasAlreadyOccurred ? '' : `onclick="executeStartEditingSequence('${safeId}')"`;
+                    // Start Editing button will always be clickable before this script starts.
+                    // After this script starts, only this script's Start Editing button becomes locked.
+                    // Different employees can start different scripts at the same time.
+                    // Same employee cannot start another script while one timer is already running.
+                    const isDoneActionAllowed = item.isEditingCurrentlyActive === true;
+                    const startButtonLocked = item.isEditingCurrentlyActive === true;
+                    const startButtonDisabledAttribute = startButtonLocked ? 'disabled style="opacity:0.65; cursor:not-allowed;" title="This script timer is already running"' : '';
+                    const startActionTriggerHTML = startButtonLocked ? '' : `onclick="executeStartEditingSequence('${safeId}')"`;
 
                     const doneActionTriggerHTML = isDoneActionAllowed ? `onclick="executeEditDoneSequence('${safeId}')"` : '';
                     const doneButtonDisabledInlineStyle = !isDoneActionAllowed ? 'style="opacity: 0.5; cursor: not-allowed;" title="Please click Start Editing first"' : '';
