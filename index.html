@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enterprise Video Script Pipeline & Production Hub</title>
+    <!-- Browser Tab Icon / Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
     <style>
         :root {
             --bg-color: #f8fafc;
@@ -323,9 +326,50 @@
 
         .row-details { flex-grow: 1; max-width: 65%; }
         .meta-time { font-size: 11px; color: #94a3b8; margin-bottom: 4px; font-weight: 500; }
-        .row-title { font-size: 16px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; }
-        .row-snippet { font-size: 13px; color: #627d98; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .row-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 7px;
+            display: inline-block;
+            padding: 6px 12px;
+            letter-spacing: -0.15px;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.14);
+            border-radius: 8px;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+        }
+        .row-snippet {
+            font-size: 13px;
+            color: #4b6380;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 10px;
+            max-width: 100%;
+        }
         .row-buttons { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end;}
+
+        .pipeline-action-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(85px, 1fr));
+            column-gap: 18px;
+            row-gap: 16px;
+            align-items: center;
+            justify-content: end;
+            min-width: 220px;
+            padding-left: 10px;
+        }
+
+        .pipeline-action-grid .btn-pro {
+            width: 100%;
+            text-align: center;
+            min-height: 38px;
+            padding: 8px 14px;
+        }
 
         .btn-pro {
             border: none; padding: 6px 12px; font-size: 12px; font-weight: 700;
@@ -599,11 +643,126 @@
         .smooth-list-enter > .script-row:nth-child(5) { animation-delay: 0.10s; }
         .smooth-list-enter > .script-row:nth-child(n+6) { animation-delay: 0.12s; }
 
+
+        /* LOGIN & ACCESS CONTROL SYSTEM */
+        body.auth-locked > header,
+        body.auth-locked > #normalWorkspaceContainer,
+        body.auth-locked > #videoWorkspace,
+        body.auth-locked > #trashWorkspace,
+        body.auth-locked > #managerWorkspace {
+            display: none !important;
+        }
+        .login-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #020617 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        body.auth-locked .login-screen { display: flex; }
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: rgba(255,255,255,0.96);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+            animation: sectionSoftEnter 0.35s ease-out both;
+        }
+        .login-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .login-subtitle {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        .login-btn {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            background: var(--accent-blue);
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .login-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(59,130,246,0.22); }
+        .locked-access-btn {
+            opacity: 0.45 !important;
+            cursor: not-allowed !important;
+            filter: grayscale(0.25);
+        }
+        .current-user-badge {
+            color: #dbeafe;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(59,130,246,0.16);
+            border: 1px solid rgba(147,197,253,0.22);
+            white-space: nowrap;
+        }
+        .access-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 90px 90px 90px 90px 75px;
+            gap: 8px;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fff;
+            margin-bottom: 10px;
+        }
+        .access-check-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-content: center;
+        }
+        .access-mini-title {
+            font-size: 12px;
+            font-weight: 900;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
     </style>
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore-compat.js"></script>
 </head>
-<body>
+<body class="auth-locked">
+
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="login-title">Script Dashboard Login</div>
+            <div class="login-subtitle">Enter your user ID and password to continue</div>
+            <div class="field-block">
+                <input type="text" id="loginUserId" class="input-control" placeholder="User ID..." autocomplete="username">
+            </div>
+            <div class="field-block">
+                <input type="password" id="loginPassword" class="input-control" placeholder="Password..." autocomplete="current-password" onkeydown="if(event.key==='Enter') attemptAppLogin()">
+            </div>
+            <button class="login-btn" onclick="attemptAppLogin()">Login</button>
+            <div id="loginErrorText" style="display:none; margin-top:12px; color:#ef4444; font-size:13px; font-weight:800; text-align:center;">Invalid user ID or password</div>
+        </div>
+    </div>
+
 
     <header>
         <div class="header-action-container">
@@ -611,6 +770,8 @@
                 <button class="btn-header-action" id="videoDashboardNavBtn" onclick="toggleVideoProductionDashboardView(true)">🎬 Ready To Video</button>
                 <button class="btn-header-action" id="managerNavBtn" onclick="showPasswordModal()">⚙️ Manager</button>
                 <button class="btn-header-action" id="trashNavBtn" onclick="toggleTrashBinWorkspaceView(true)">🗑️ Global Trash</button>
+                <span class="current-user-badge" id="currentUserBadge" style="display:none;">User</span>
+                <button class="btn-header-action" id="logoutNavBtn" onclick="logoutApp()" style="display:none;">🚪 Logout</button>
             </div>
             <div class="back-btn-space" id="backBtnPlaceholder" style="display:none;">
                 <button class="btn-micro-back" onclick="triggerGlobalBackToScriptsNavigationRouter()">← Back to Scripts</button>
@@ -702,6 +863,7 @@
             <button class="tab-link active" id="tabManagerAnalytics" onclick="changeManagerView('analytics')">📊 Daily Analytics</button>
             <button class="tab-link" id="tabManagerEmployee" onclick="changeManagerView('employee')">👥 Employee Update</button>
             <button class="tab-link" id="tabManagerLists" onclick="changeManagerView('lists')">📋 Manage Dropdowns</button>
+            <button class="tab-link" id="tabManagerAccess" onclick="changeManagerView('access')">🔐 Password & Access</button>
             <button class="tab-link" id="tabManagerTrash" onclick="changeManagerView('trash')">⚙️ Modify Trash</button>
         </div>
 
@@ -817,6 +979,24 @@
             </div>
         </div>
 
+
+        <div id="managerAccessControlSection" style="display: none;">
+            <div class="creation-panel">
+                <div class="panel-heading">Password & Access Control</div>
+                <div style="font-size:13px; color:#64748b; font-weight:700; margin-bottom:14px;">Manage employee user ID, password and allowed sections from here.</div>
+                <div id="accessUsersList"></div>
+                <div class="creation-panel" style="padding:14px; margin-bottom:0; background:#f8fafc;">
+                    <div class="access-mini-title" style="margin-bottom:8px;">Add New Employee Login</div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap:8px; align-items:center;">
+                        <input type="text" id="newAccessName" class="input-control" placeholder="Employee name..." style="padding:8px;">
+                        <input type="text" id="newAccessUserId" class="input-control" placeholder="User ID..." style="padding:8px;">
+                        <input type="text" id="newAccessPassword" class="input-control" placeholder="Password..." style="padding:8px;">
+                        <button class="btn-pro btn-ready" onclick="addAccessUser()">Add User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="managerListSection" style="display: none;">
             <div class="list-title" id="managerListTitle">Manager Operations View</div>
             <div class="scripts-grid" id="managerGridContainer"></div>
@@ -865,11 +1045,16 @@
         const configRef = db.collection("settings").doc("appConfig");
 
         let pipelineDataStore = [];
+        const DEFAULT_ACCESS_USERS = [
+            { name: "Manager", userId: "manager", password: "sabuj007", access: { scripts: true, video: true, trash: true, manager: true } }
+        ];
+        let currentUserSession = null;
         let appConfigStore = {
             products: ["Green Tea", "Hair Oil", "Height Booster"],
             productColors: { "Green Tea": "#10b981", "Hair Oil": "#3b82f6", "Height Booster": "#8b5cf6" },
             members: ["Sayan", "Sourab", "Abhi", "Sabuj"],
-            memberColors: { "Sayan": "#ec4899", "Sourab": "#f59e0b", "Abhi": "#06b6d4", "Sabuj": "#10b981" }
+            memberColors: { "Sayan": "#ec4899", "Sourab": "#f59e0b", "Abhi": "#06b6d4", "Sabuj": "#10b981" },
+            users: DEFAULT_ACCESS_USERS
         };
 
         let firebaseDataReady = false;
@@ -929,6 +1114,8 @@
                 if (managerViewContext === 'analytics') triggerSmoothSectionAnimation('managerAnalyticsSection');
                 if (managerViewContext === 'employee') triggerSmoothSectionAnimation('managerEmployeeUpdateSection');
                 if (managerViewContext === 'lists') triggerSmoothSectionAnimation('managerDropdownsConfigSection');
+                if (managerViewContext === 'access') triggerSmoothSectionAnimation('managerAccessControlSection');
+                if (managerViewContext === 'access') triggerSmoothSectionAnimation('managerAccessControlSection');
                 if (managerViewContext === 'trash') triggerSmoothSectionAnimation('managerListSection');
             } else if (isVideoDashboardMode) {
                 triggerSmoothSectionAnimation('videoWorkspace');
@@ -983,17 +1170,192 @@
                         products: data.products || ["Green Tea", "Hair Oil", "Height Booster"],
                         productColors: data.productColors || { "Green Tea": "#10b981", "Hair Oil": "#3b82f6", "Height Booster": "#8b5cf6" },
                         members: data.members || ["Sayan", "Sourab", "Abhi", "Sabuj"],
-                        memberColors: data.memberColors || { "Sayan": "#ec4899", "Sourab": "#f59e0b", "Abhi": "#06b6d4", "Sabuj": "#10b981" }
+                        memberColors: data.memberColors || { "Sayan": "#ec4899", "Sourab": "#f59e0b", "Abhi": "#06b6d4", "Sabuj": "#10b981" },
+                        users: Array.isArray(data.users) && data.users.length ? data.users : DEFAULT_ACCESS_USERS
                     };
+                    ensureDefaultAccessUsers();
                     firebaseConfigReady = true;
+                    if (!currentUserSession) initializeAuthenticationGate();
+                    else updateAccessControlledHeaderState();
                     syncPipelineInfrastructure();
                 } else {
                     configRef.set(appConfigStore);
                     firebaseConfigReady = true;
+                    initializeAuthenticationGate();
                 }
             }, error => {
                 console.error("Firebase config load error:", error);
             });
+        }
+
+
+        // --- LOGIN, LOGOUT & ACCESS CONTROL SYSTEM ---
+        function ensureDefaultAccessUsers() {
+            if (!Array.isArray(appConfigStore.users)) appConfigStore.users = [];
+            DEFAULT_ACCESS_USERS.forEach(defaultUser => {
+                const exists = appConfigStore.users.some(u => String(u.userId || '').toLowerCase() === defaultUser.userId.toLowerCase());
+                if (!exists) appConfigStore.users.push(JSON.parse(JSON.stringify(defaultUser)));
+            });
+        }
+
+        function normalizeAccessObject(access) {
+            return {
+                scripts: !!(access && access.scripts),
+                video: !!(access && access.video),
+                trash: !!(access && access.trash),
+                manager: !!(access && access.manager)
+            };
+        }
+
+        function hasAccess(sectionKey) {
+            if (!currentUserSession) return false;
+            const rawAccess = currentUserSession.access || {};
+            currentUserSession.access = normalizeAccessObject(currentUserSession.access);
+
+            if (sectionKey === 'trash') {
+                return currentUserSession.access.trash === true || rawAccess.globalTrash === true;
+            }
+
+            return currentUserSession.access[sectionKey] === true;
+        }
+
+        function attemptAppLogin() {
+            ensureDefaultAccessUsers();
+            const userId = document.getElementById('loginUserId').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            const foundUser = appConfigStore.users.find(user => String(user.userId || '').toLowerCase() === userId && String(user.password || '') === password);
+
+            if (!foundUser) {
+                document.getElementById('loginErrorText').style.display = 'block';
+                return;
+            }
+
+            currentUserSession = {
+                name: foundUser.name,
+                userId: foundUser.userId,
+                access: normalizeAccessObject(foundUser.access)
+            };
+            localStorage.setItem('script_dashboard_current_user', JSON.stringify(currentUserSession));
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginErrorText').style.display = 'none';
+            unlockApplicationAfterLogin();
+        }
+
+        function loadExistingLoginSession() {
+            try {
+                const cached = JSON.parse(localStorage.getItem('script_dashboard_current_user'));
+                if (!cached || !cached.userId) return false;
+                const liveUser = (appConfigStore.users || []).find(user => String(user.userId || '').toLowerCase() === String(cached.userId || '').toLowerCase());
+                if (!liveUser) return false;
+                currentUserSession = {
+                    name: liveUser.name,
+                    userId: liveUser.userId,
+                    access: normalizeAccessObject(liveUser.access)
+                };
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function unlockApplicationAfterLogin() {
+            document.body.classList.remove('auth-locked');
+            updateAccessControlledHeaderState();
+            routeUserToDefaultWorkspace();
+            setTimeout(triggerActiveScreenAnimation, 60);
+        }
+
+        function routeUserToDefaultWorkspace() {
+            if (hasAccess('scripts')) {
+                if (isVideoDashboardMode) toggleVideoProductionDashboardView(false);
+                if (isTrashWorkspaceMode) toggleTrashBinWorkspaceView(false);
+                if (isManagerMode) exitManagerMode();
+                changeWorkspaceView(executionViewContext || 'active');
+            } else if (hasAccess('video')) {
+                toggleVideoProductionDashboardView(true);
+            } else if (hasAccess('trash')) {
+                toggleTrashBinWorkspaceView(true);
+            }
+        }
+
+        function updateAccessControlledHeaderState() {
+            const videoBtn = document.getElementById('videoDashboardNavBtn');
+            const managerBtn = document.getElementById('managerNavBtn');
+            const trashBtn = document.getElementById('trashNavBtn');
+            const logoutBtn = document.getElementById('logoutNavBtn');
+            const userBadge = document.getElementById('currentUserBadge');
+
+            if (userBadge && currentUserSession) {
+                userBadge.style.display = 'inline-flex';
+                userBadge.innerText = `👤 ${currentUserSession.name || currentUserSession.userId}`;
+            }
+            if (logoutBtn) logoutBtn.style.display = 'inline-block';
+
+            applyButtonAccessState(videoBtn, hasAccess('video'));
+            applyButtonAccessState(managerBtn, hasAccess('manager'));
+            applyButtonAccessState(trashBtn, hasAccess('trash'));
+        }
+
+        function applyButtonAccessState(button, allowed) {
+            if (!button) return;
+            button.classList.toggle('locked-access-btn', !allowed);
+            button.title = allowed ? '' : 'Access denied for this user';
+        }
+
+        function guardAccess(sectionKey) {
+            // Access guard fixed: Global Trash is allowed for users who have trash access.
+            // Also supports older saved user objects that may use globalTrash key.
+            if (hasAccess(sectionKey)) return true;
+
+            if (sectionKey === 'trash' && currentUserSession && currentUserSession.access) {
+                if (currentUserSession.access.trash === true || currentUserSession.access.globalTrash === true) return true;
+            }
+
+            alert('You do not have access to this section.');
+            return false;
+        }
+
+        function logoutApp(forceLogout = false) {
+            if (forceLogout !== true) {
+                showModalDialogue(
+                    "Confirm Logout",
+                    "Are you sure you want to logout from this dashboard?",
+                    '',
+                    `
+                    <button class="btn-alert btn-cancel-alert" onclick="dismissModalOverlay()">Cancel</button>
+                    <button class="btn-alert btn-confirm-save" onclick="logoutApp(true)">Logout</button>
+                    `
+                );
+                return;
+            }
+
+            dismissModalOverlay();
+            localStorage.removeItem('script_dashboard_current_user');
+            currentUserSession = null;
+            isManagerMode = false;
+            isVideoDashboardMode = false;
+            isTrashWorkspaceMode = false;
+            document.getElementById('managerWorkspace').style.display = 'none';
+            document.getElementById('videoWorkspace').style.display = 'none';
+            document.getElementById('trashWorkspace').style.display = 'none';
+            document.getElementById('normalWorkspaceContainer').style.display = 'block';
+            document.getElementById('mainHeaderTitle').innerText = 'All Scripts';
+            document.getElementById('currentUserBadge').style.display = 'none';
+            document.getElementById('logoutNavBtn').style.display = 'none';
+            document.getElementById('headerButtonsRow').style.display = 'flex';
+            document.getElementById('managerHeaderExitBtn').style.display = 'none';
+            document.body.classList.add('auth-locked');
+            setTimeout(() => document.getElementById('loginUserId').focus(), 60);
+        }
+
+        function initializeAuthenticationGate() {
+            ensureDefaultAccessUsers();
+            const hasSession = loadExistingLoginSession();
+            if (hasSession) unlockApplicationAfterLogin();
+            else {
+                document.body.classList.add('auth-locked');
+                setTimeout(() => document.getElementById('loginUserId').focus(), 60);
+            }
         }
 
         function escapeHTML(value) {
@@ -1327,17 +1689,16 @@
                 if (executionViewContext === 'active') matchStage = (item.stage === 'pending');
                 else if (executionViewContext === 'ready') matchStage = (item.stage === 'ready');
                 else {
-                    if(item.stage !== 'completed') return false;
-                    return (item.completedTimestamp && item.completedTimestamp.includes(todayStr));
+                    matchStage = (item.stage === 'completed' && item.completedTimestamp && item.completedTimestamp.includes(todayStr));
                 }
 
                 if (!matchStage) return false;
 
                 if (selectedFilterValue !== 'all') {
                     const searchTarget = String(selectedFilterValue).toLowerCase();
-                    const titleText = String(item.title || '').toLowerCase();
-                    const bodyText = String(item.body || '').toLowerCase();
-                    return (titleText.includes(searchTarget) || bodyText.includes(searchTarget));
+                    const selectedProductMatch = String(item.assignedProduct || '').toLowerCase() === searchTarget;
+                    const titleProductMatch = String(item.title || '').toLowerCase().includes(searchTarget);
+                    return selectedProductMatch || titleProductMatch;
                 }
 
                 return true;
@@ -1376,15 +1737,21 @@
 
                 if (executionViewContext === 'active') {
                     operationsButtonsMarkup = `
-                        ${copyBtnMarkup} <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">View</button>
-                        <button class="btn-pro btn-ready" onclick="shiftScriptStage('${safeId}', 'ready')">Ready</button>
-                        <button class="btn-pro btn-delete" onclick="triggerSoftDeleteRoutingVerification('${safeId}')">Delete</button>
+                        <div class="pipeline-action-grid">
+                            ${copyBtnMarkup}
+                            <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">View</button>
+                            <button class="btn-pro btn-ready" onclick="shiftScriptStage('${safeId}', 'ready')">Ready</button>
+                            <button class="btn-pro btn-delete" onclick="triggerSoftDeleteRoutingVerification('${safeId}')">Delete</button>
+                        </div>
                     `;
                 } else if (executionViewContext === 'ready') {
                     operationsButtonsMarkup = `
-                        ${copyBtnMarkup} <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">View</button>
-                        <button class="btn-pro btn-done" onclick="openMarkDoneSelectionPopup('${safeId}')">Mark Done ✓</button>
-                        <button class="btn-pro btn-delete" onclick="triggerSoftDeleteRoutingVerification('${safeId}')">Delete</button>
+                        <div class="pipeline-action-grid">
+                            ${copyBtnMarkup}
+                            <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">View</button>
+                            <button class="btn-pro btn-done" onclick="openMarkDoneSelectionPopup('${safeId}')">Mark Done ✓</button>
+                            <button class="btn-pro btn-delete" onclick="triggerSoftDeleteRoutingVerification('${safeId}')">Delete</button>
+                        </div>
                     `;
                 } else {
                     operationsButtonsMarkup = `${copyBtnMarkup} <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">View</button>`;
@@ -1603,6 +1970,7 @@
 
         // --- GLOBAL MULTI ROUTING WORKSPACE ACTIONS CONTROL PANEL ---
         function toggleVideoProductionDashboardView(activateVideoMode) {
+            if (activateVideoMode && !guardAccess('video')) return;
             if(isManagerMode) exitManagerMode();
             if(isTrashWorkspaceMode) toggleTrashBinWorkspaceView(false);
 
@@ -1623,7 +1991,7 @@
                 videoContainer.style.display = 'block';
                 document.getElementById('mainHeaderTitle').innerText = "Production Video Matrix";
                 navBtn.classList.add('active-mode');
-                backBtnPlaceholder.style.display = 'flex';
+                backBtnPlaceholder.style.display = hasAccess('scripts') ? 'flex' : 'none';
                 
                 standardCountersBar.style.display = 'none';
                 trashCountersBar.style.display = 'none';
@@ -1648,6 +2016,7 @@
         }
 
         function toggleTrashBinWorkspaceView(activateTrashMode) {
+            if (activateTrashMode && !guardAccess('trash')) return;
             if(isManagerMode) exitManagerMode();
             if(isVideoDashboardMode) toggleVideoProductionDashboardView(false);
 
@@ -1668,7 +2037,7 @@
                 trashContainer.style.display = 'block';
                 document.getElementById('mainHeaderTitle').innerText = "All Expired Records";
                 navBtn.classList.add('active-mode');
-                backBtnPlaceholder.style.display = 'flex';
+                backBtnPlaceholder.style.display = hasAccess('scripts') ? 'flex' : 'none';
                 
                 standardCountersBar.style.display = 'none';
                 videoCountersBar.style.display = 'none';
@@ -1719,6 +2088,7 @@
         }
 
         function changeWorkspaceView(context) {
+            if (!guardAccess('scripts')) return;
             executionViewContext = context;
             document.getElementById('tabActive').classList.toggle('active', context === 'active');
             document.getElementById('tabReady').classList.toggle('active', context === 'ready');
@@ -1865,6 +2235,7 @@
 
         // --- ADMINISTRATIVE MANAGER SYSTEM CONTROL PROCEDURES ---
         function showPasswordModal() {
+            if (!guardAccess('manager')) return;
             showModalDialogue(
                 "Manager Panel Login Required",
                 "Please enter the master credential password string to authorize manager interface loop access.",
@@ -1887,6 +2258,7 @@
         }
 
         function enterManagerMode() {
+            if (!guardAccess('manager')) return;
             isManagerMode = true;
             if(isVideoDashboardMode) toggleVideoProductionDashboardView(false);
             if(isTrashWorkspaceMode) toggleTrashBinWorkspaceView(false);
@@ -1927,11 +2299,13 @@
             document.getElementById('tabManagerAnalytics').classList.toggle('active', view === 'analytics');
             document.getElementById('tabManagerEmployee').classList.toggle('active', view === 'employee');
             document.getElementById('tabManagerLists').classList.toggle('active', view === 'lists');
+            document.getElementById('tabManagerAccess').classList.toggle('active', view === 'access');
             document.getElementById('tabManagerTrash').classList.toggle('active', view === 'trash');
 
             const analyticsSec = document.getElementById('managerAnalyticsSection');
             const employeeSec = document.getElementById('managerEmployeeUpdateSection');
             const configDropdownsSec = document.getElementById('managerDropdownsConfigSection');
+            const accessSec = document.getElementById('managerAccessControlSection');
             const listSec = document.getElementById('managerListSection');
             const subTabsWrapper = document.getElementById('managerTrashSubTabsWrapper');
 
@@ -1940,6 +2314,7 @@
                 employeeSec.style.display = 'none';
                 listSec.style.display = 'none';
                 configDropdownsSec.style.display = 'none';
+                accessSec.style.display = 'none';
                 subTabsWrapper.style.display = 'none';
                 renderManagerAnalytics();
                 triggerSmoothSectionAnimation('managerAnalyticsSection');
@@ -1949,6 +2324,7 @@
                 employeeSec.style.display = 'block';
                 listSec.style.display = 'none';
                 configDropdownsSec.style.display = 'none';
+                accessSec.style.display = 'none';
                 subTabsWrapper.style.display = 'none';
                 prepareEmployeeUpdateControls();
                 renderEmployeeUpdateReport();
@@ -1959,19 +2335,127 @@
                 employeeSec.style.display = 'none';
                 listSec.style.display = 'none';
                 configDropdownsSec.style.display = 'block';
+                accessSec.style.display = 'none';
                 subTabsWrapper.style.display = 'none';
                 renderConfigManagementLists();
                 triggerSmoothSectionAnimation('managerDropdownsConfigSection');
+            } else if (view === 'access') {
+                analyticsSec.style.display = 'none';
+                employeeSec.style.display = 'none';
+                listSec.style.display = 'none';
+                configDropdownsSec.style.display = 'none';
+                accessSec.style.display = 'block';
+                subTabsWrapper.style.display = 'none';
+                renderAccessManagementPanel();
+                triggerSmoothSectionAnimation('managerAccessControlSection');
             } else if (view === 'trash') {
                 analyticsSec.style.display = 'none';
                 employeeSec.style.display = 'none';
                 configDropdownsSec.style.display = 'none';
+                accessSec.style.display = 'none';
                 listSec.style.display = 'block';
                 subTabsWrapper.style.display = 'flex';
                 changeManagerTrashSubView(managerTrashSubContext);
                 triggerSmoothSectionAnimation('managerListSection');
                 triggerSmoothListAnimation('managerGridContainer');
             }
+        }
+
+
+        function isProtectedManagerUser(user) {
+            return String(user && user.userId || '').toLowerCase() === 'manager' || String(user && user.name || '').toLowerCase() === 'manager';
+        }
+
+        function renderAccessManagementPanel() {
+            ensureDefaultAccessUsers();
+            const list = document.getElementById('accessUsersList');
+            if (!list) return;
+            list.innerHTML = appConfigStore.users.map((user, index) => {
+                const safeIndex = index;
+                const access = normalizeAccessObject(user.access);
+                const isManagerProtected = isProtectedManagerUser(user);
+                const deleteButtonMarkup = isManagerProtected
+                    ? `<button class="btn-pro btn-view" disabled style="opacity:0.55; cursor:not-allowed;">Protected</button>`
+                    : `<button class="btn-pro btn-delete" onclick="deleteAccessUser(${safeIndex})">Delete</button>`;
+                return `
+                    <div class="access-grid-row">
+                        <input class="input-control" style="padding:8px;" value="${escapeAttr(user.name || '')}" onchange="updateAccessUserField(${safeIndex}, 'name', this.value)">
+                        <input class="input-control" style="padding:8px;" value="${escapeAttr(user.userId || '')}" onchange="updateAccessUserField(${safeIndex}, 'userId', this.value)">
+                        <input class="input-control" style="padding:8px;" value="${escapeAttr(user.password || '')}" onchange="updateAccessUserField(${safeIndex}, 'password', this.value)">
+                        <label class="access-check-label"><input type="checkbox" ${access.scripts ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'scripts', this.checked)"> Scripts</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.video ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'video', this.checked)"> Video</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.trash ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'trash', this.checked)"> Trash</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.manager ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'manager', this.checked)"> Manager</label>
+                        ${deleteButtonMarkup}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateAccessUserField(index, field, value) {
+            ensureDefaultAccessUsers();
+            if (!appConfigStore.users[index]) return;
+            const cleaned = String(value || '').trim();
+            if (!cleaned) { renderAccessManagementPanel(); return; }
+            if (field === 'userId') {
+                const duplicate = appConfigStore.users.some((u, idx) => idx !== index && String(u.userId || '').toLowerCase() === cleaned.toLowerCase());
+                if (duplicate) { alert('This User ID already exists.'); renderAccessManagementPanel(); return; }
+            }
+            appConfigStore.users[index][field] = cleaned;
+            saveDemoDataStateSnapshot();
+            updateCurrentSessionFromUserList();
+            renderAccessManagementPanel();
+        }
+
+        function updateAccessUserPermission(index, permissionKey, checked) {
+            ensureDefaultAccessUsers();
+            if (!appConfigStore.users[index]) return;
+            appConfigStore.users[index].access = normalizeAccessObject(appConfigStore.users[index].access);
+            appConfigStore.users[index].access[permissionKey] = checked;
+            saveDemoDataStateSnapshot();
+            updateCurrentSessionFromUserList();
+            renderAccessManagementPanel();
+        }
+
+        function addAccessUser() {
+            ensureDefaultAccessUsers();
+            const name = document.getElementById('newAccessName').value.trim();
+            const userId = document.getElementById('newAccessUserId').value.trim();
+            const password = document.getElementById('newAccessPassword').value.trim();
+            if (!name || !userId || !password) { alert('Please fill name, user ID and password.'); return; }
+            const duplicate = appConfigStore.users.some(u => String(u.userId || '').toLowerCase() === userId.toLowerCase());
+            if (duplicate) { alert('This User ID already exists.'); return; }
+            appConfigStore.users.push({ name, userId, password, access: { scripts: false, video: true, trash: true, manager: false } });
+            document.getElementById('newAccessName').value = '';
+            document.getElementById('newAccessUserId').value = '';
+            document.getElementById('newAccessPassword').value = '';
+            saveDemoDataStateSnapshot();
+            renderAccessManagementPanel();
+        }
+
+        function deleteAccessUser(index) {
+            ensureDefaultAccessUsers();
+            const target = appConfigStore.users[index];
+            if (!target) return;
+            if (isProtectedManagerUser(target)) {
+                alert('Manager account cannot be deleted.');
+                renderAccessManagementPanel();
+                return;
+            }
+            if (!confirm('Delete this user access?')) return;
+            appConfigStore.users.splice(index, 1);
+            saveDemoDataStateSnapshot();
+            updateCurrentSessionFromUserList();
+            renderAccessManagementPanel();
+        }
+
+        function updateCurrentSessionFromUserList() {
+            if (!currentUserSession) return;
+            const liveUser = appConfigStore.users.find(user => String(user.userId || '').toLowerCase() === String(currentUserSession.userId || '').toLowerCase());
+            if (!liveUser) { logoutApp(true); return; }
+            currentUserSession = { name: liveUser.name, userId: liveUser.userId, access: normalizeAccessObject(liveUser.access) };
+            localStorage.setItem('script_dashboard_current_user', JSON.stringify(currentUserSession));
+            updateAccessControlledHeaderState();
         }
 
         function changeManagerTrashSubView(subContext) {
