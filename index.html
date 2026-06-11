@@ -1797,7 +1797,7 @@
             </div>
             <div class="editor-controls">
                 <button class="btn-editor btn-save-edit" id="editorSaveBtn" onclick="saveActiveOverlayEdits()">Save Changes</button>
-                <button class="btn-editor btn-hide" id="editorHideBtn" onclick="verifyExitSequence()">Hide Screen</button>
+                <button class="btn-editor btn-hide" id="editorHideBtn" onclick="verifyExitSequence()">Back</button>
             </div>
         </div>
         <textarea class="editor-textarea" id="fullscreenBody" oninput="trackEditorStateChanges()"></textarea>
@@ -2218,19 +2218,63 @@
             return Number.isNaN(parsedTime) ? 0 : parsedTime;
         }
 
+        function normalizeProductFilterText(value) {
+            return String(value || '')
+                .toLowerCase()
+                .replace(/[\u200B-\u200D\uFEFF]/g, '')
+                .replace(/[^a-z0-9\u0900-\u097F]+/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function buildStrictProductFilterAliases(productName) {
+            const baseName = normalizeProductFilterText(productName);
+            if (!baseName) return [];
+
+            const removableProductFormWords = new Set([
+                'tablet', 'tablets', 'capsule', 'capsules', 'powder', 'shampoo',
+                'oil', 'syrup', 'cream', 'gel', 'drops', 'liquid', 'pack', 'bottle'
+            ]);
+
+            const aliases = [baseName];
+            const compactName = baseName
+                .split(' ')
+                .filter(word => !removableProductFormWords.has(word))
+                .join(' ')
+                .trim();
+
+            // Compact alias is allowed only as a full phrase, never single common words like booster/tea.
+            if (compactName && compactName !== baseName && compactName.split(' ').length >= 2) {
+                aliases.push(compactName);
+            }
+
+            return [...new Set(aliases)].filter(alias => alias && alias.split(' ').length >= 2);
+        }
+
+        function normalizedPhraseContainsFullProduct(textValue, productPhrase) {
+            const normalizedText = normalizeProductFilterText(textValue);
+            const normalizedPhrase = normalizeProductFilterText(productPhrase);
+            if (!normalizedText || !normalizedPhrase) return false;
+            return (` ${normalizedText} `).includes(` ${normalizedPhrase} `);
+        }
+
+        function isBlankOrNoneProductValue(value) {
+            const normalizedValue = normalizeProductFilterText(value);
+            return !normalizedValue || normalizedValue === 'none' || normalizedValue === 'no product';
+        }
+
         function doesScriptMatchSelectedProduct(item, selectedProductName) {
             if (!selectedProductName || selectedProductName === 'all') return true;
 
-            const searchTarget = String(selectedProductName).trim().toLowerCase();
-            if (!searchTarget) return true;
+            const productAliases = buildStrictProductFilterAliases(selectedProductName);
+            if (productAliases.length === 0) return false;
 
-            const assignedProductText = String(item.assignedProduct || '').toLowerCase();
-            const titleText = String(item.title || '').toLowerCase();
-            const scriptBodyText = String(item.body || '').toLowerCase();
+            const titleText = String(item.title || '');
 
-            return assignedProductText.includes(searchTarget) ||
-                   titleText.includes(searchTarget) ||
-                   scriptBodyText.includes(searchTarget);
+            // Product filter must match ONLY the script title, not the full script body.
+            // Match is case-insensitive and phrase-based, so "Hair Booster Shampoo" will not match "Height Booster" just because both contain "booster".
+            // Product form words are still supported, so "Green Tea tablet" can match titles containing "Green Tea".
+            return productAliases.some(alias => normalizedPhraseContainsFullProduct(titleText, alias));
         }
 
 
@@ -2337,10 +2381,12 @@
                 return;
             }
 
-            if (target.isEditingCurrentlyActive === true) {
+            if (target.isEditingCurrentlyActive === true || target.isEditingPaused === true || target.editStartEpoch || target.editStartClockTime || Number(target.editPausedElapsedMillis || 0) > 0) {
                 showModalDialogue(
                     "Editing Already Started",
-                    "This script editing timer is already running. Please click Edit Done when the work is finished.",
+                    target.isEditingPaused === true
+                        ? "This script editing timer is currently stopped. Only Manager or Control Editing user can Resume it. Start Editing cannot be pressed again."
+                        : "This script editing timer is already running. Start Editing cannot be pressed again. Please click Edit Done when the work is finished.",
                     '',
                     `<button class="btn-alert btn-confirm-save" onclick="dismissModalOverlay()">OK</button>`
                 );
@@ -2878,9 +2924,10 @@
                     // Same employee cannot start another script while one timer is already running.
                     const canOperateThisVideo = canCurrentUserOperateEditing(item);
                     if (canOperateThisVideo) {
-                        const isDoneActionAllowed = item.isEditingCurrentlyActive === true;
-                        const startButtonLocked = item.isEditingCurrentlyActive === true;
-                        const startButtonDisabledAttribute = startButtonLocked ? 'disabled style="opacity:0.65; cursor:not-allowed;" title="This script timer is already running"' : '';
+                        const hasThisScriptEverStarted = item.isEditingCurrentlyActive === true || item.isEditingPaused === true || !!item.editStartEpoch || !!item.editStartClockTime || Number(item.editPausedElapsedMillis || 0) > 0;
+                        const isDoneActionAllowed = item.isEditingCurrentlyActive === true || item.isEditingPaused === true;
+                        const startButtonLocked = hasThisScriptEverStarted === true;
+                        const startButtonDisabledAttribute = startButtonLocked ? 'disabled style="opacity:0.65; cursor:not-allowed;" title="Start Editing can be pressed only once for this script"' : '';
                         const startActionTriggerHTML = startButtonLocked ? '' : `onclick="executeStartEditingSequence('${safeId}')"`;
 
                         const doneActionTriggerHTML = isDoneActionAllowed ? `onclick="executeEditDoneSequence('${safeId}')"` : '';
