@@ -552,6 +552,269 @@
             }
         }
 
+
+
+        /* FINAL PROFESSIONAL POLISH: themed header, welcome animation, premium smoothness */
+        .animated-welcome-banner {
+            position: absolute;
+            left: 42px;
+            top: 32px;
+            z-index: 2;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.2px;
+            color: #e0f2fe;
+            background: linear-gradient(135deg, rgba(14,165,233,0.20), rgba(16,185,129,0.14), rgba(139,92,246,0.18));
+            border: 1px solid rgba(125, 211, 252, 0.26);
+            box-shadow: 0 10px 28px rgba(2, 132, 199, 0.13), inset 0 0 18px rgba(255,255,255,0.04);
+            white-space: nowrap;
+            animation: welcomeFloatGlow 3.2s ease-in-out infinite;
+        }
+
+        @keyframes welcomeFloatGlow {
+            0%, 100% { transform: translateY(0); box-shadow: 0 10px 28px rgba(2,132,199,0.13), inset 0 0 18px rgba(255,255,255,0.04); }
+            50% { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(16,185,129,0.20), inset 0 0 24px rgba(255,255,255,0.07); }
+        }
+
+        #videoDashboardNavBtn {
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            border-color: rgba(125, 211, 252, 0.38);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+        }
+        #managerNavBtn {
+            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+            border-color: rgba(196, 181, 253, 0.34);
+            box-shadow: 0 8px 18px rgba(124, 58, 237, 0.20);
+        }
+        #trashNavBtn {
+            background: linear-gradient(135deg, #334155 0%, #ef4444 100%);
+            border-color: rgba(248, 113, 113, 0.35);
+            box-shadow: 0 8px 18px rgba(239, 68, 68, 0.18);
+        }
+        #logoutNavBtn {
+            background: linear-gradient(135deg, #92400e 0%, #f59e0b 100%);
+            border-color: rgba(251, 191, 36, 0.36);
+            box-shadow: 0 8px 18px rgba(245, 158, 11, 0.18);
+        }
+        #currentUserBadge {
+            background: linear-gradient(135deg, rgba(59,130,246,0.28), rgba(14,165,233,0.16));
+            border-color: rgba(147,197,253,0.34);
+            box-shadow: 0 8px 18px rgba(59,130,246,0.12);
+        }
+
+        .btn-header-action {
+            border-radius: 9px;
+            transform: translateZ(0);
+        }
+        .btn-header-action:hover {
+            filter: brightness(1.08);
+        }
+
+        .stat-badge {
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 8px 18px rgba(0,0,0,0.10);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .stat-badge:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.14); }
+
+        .creation-panel, .pipeline-modern-card, .script-row, .analytics-card, .sub-manage-box {
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+        }
+        .creation-panel {
+            box-shadow: 0 12px 34px rgba(15, 23, 42, 0.035);
+        }
+        .creation-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.065);
+        }
+
+        .pipeline-modern-card {
+            border-left-color: #3b82f6;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.055);
+        }
+        .pipeline-modern-card:hover {
+            transform: translateY(-5px) scale(1.003);
+            box-shadow: 0 22px 48px rgba(15, 23, 42, 0.10);
+            border-color: rgba(59, 130, 246, 0.30);
+        }
+        .pipeline-modern-card .pipeline-card-top {
+            background: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(14,165,233,0.055));
+        }
+        .pipeline-modern-card .pipeline-card-title {
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .pipeline-modern-card:hover .pipeline-card-title {
+            color: #2563eb;
+            transform: translateX(2px);
+        }
+
+        .tab-link.active {
+            background: linear-gradient(180deg, rgba(59,130,246,0.08), rgba(59,130,246,0));
+            border-radius: 8px 8px 0 0;
+        }
+        .sub-tab-link.active {
+            box-shadow: 0 8px 18px rgba(59,130,246,0.18);
+        }
+
+        .smooth-section-enter {
+            animation: sectionPremiumEnter 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        @keyframes sectionPremiumEnter {
+            0% { opacity: 0; transform: translateY(18px) scale(0.992); filter: blur(3px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        .action-submit {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 55%, #1d4ed8 100%);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.10);
+        }
+        .action-submit:hover {
+            filter: brightness(1.06);
+        }
+
+        @media (max-width: 1250px) {
+            .animated-welcome-banner {
+                position: static;
+                order: -1;
+                margin-bottom: 2px;
+            }
+        }
+        @media (max-width: 700px) {
+            .animated-welcome-banner {
+                font-size: 12px;
+                padding: 8px 12px;
+                white-space: normal;
+            }
+        }
+
+
+
+        /* FINAL POLISH V2: section based header colors + text-only animated welcome */
+        header {
+            background-size: 220% 220% !important;
+            transition: background 0.42s ease, box-shadow 0.42s ease;
+            animation: headerGradientDrift 9s ease-in-out infinite;
+        }
+
+        @keyframes headerGradientDrift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        body.theme-scripts header {
+            background: linear-gradient(135deg, #111827 0%, #0f172a 48%, #172554 100%) !important;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+        }
+        body.theme-video header {
+            background: linear-gradient(135deg, #082f49 0%, #075985 44%, #0e7490 100%) !important;
+            box-shadow: 0 14px 34px rgba(14, 116, 144, 0.18);
+        }
+        body.theme-manager header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 46%, #6d28d9 100%) !important;
+            box-shadow: 0 14px 34px rgba(109, 40, 217, 0.20);
+        }
+        body.theme-trash header {
+            background: linear-gradient(135deg, #1f2937 0%, #7f1d1d 48%, #991b1b 100%) !important;
+            box-shadow: 0 14px 34px rgba(153, 27, 27, 0.20);
+        }
+
+        .animated-welcome-banner {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            color: #e0f2fe !important;
+            font-size: 15px !important;
+            font-weight: 900 !important;
+            letter-spacing: 0.25px !important;
+            text-shadow: 0 0 10px rgba(125, 211, 252, 0.28);
+            animation: welcomeTextMotion 2.6s ease-in-out infinite, welcomeColorFlow 5.2s ease-in-out infinite !important;
+        }
+
+        @keyframes welcomeTextMotion {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(8px) translateY(-2px); }
+        }
+
+        @keyframes welcomeColorFlow {
+            0%, 100% { color: #e0f2fe; text-shadow: 0 0 10px rgba(125, 211, 252, 0.28); }
+            33% { color: #bbf7d0; text-shadow: 0 0 14px rgba(16, 185, 129, 0.34); }
+            66% { color: #ddd6fe; text-shadow: 0 0 14px rgba(168, 85, 247, 0.34); }
+        }
+
+        .header-title {
+            animation: premiumTitleBreath 3.8s ease-in-out infinite !important;
+        }
+        @keyframes premiumTitleBreath {
+            0%, 100% { transform: translateY(0); text-shadow: 0 2px 12px rgba(255,255,255,0.06); }
+            50% { transform: translateY(-1px); text-shadow: 0 0 18px rgba(255,255,255,0.22); }
+        }
+
+        .btn-header-action {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px !important;
+        }
+        .btn-header-action::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -80%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+            transform: skewX(-18deg);
+            transition: left 0.55s ease;
+        }
+        .btn-header-action:hover::after { left: 130%; }
+        .btn-header-action:hover { transform: translateY(-3px) !important; }
+
+        body.theme-video #videoDashboardNavBtn,
+        body.theme-manager #managerNavBtn,
+        body.theme-trash #trashNavBtn {
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 12px 26px rgba(255,255,255,0.10) !important;
+            filter: brightness(1.12);
+        }
+
+        body.theme-scripts .tab-link.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        body.theme-video .tab-link.active { color: #06b6d4; border-bottom-color: #06b6d4; }
+        body.theme-manager .tab-link.active { color: #8b5cf6; border-bottom-color: #8b5cf6; }
+        body.theme-trash .tab-link.active { color: #ef4444; border-bottom-color: #ef4444; }
+
+        body.theme-video .pipeline-modern-card,
+        body.theme-video .script-row { border-left-color: #06b6d4 !important; }
+        body.theme-manager .pipeline-modern-card,
+        body.theme-manager .script-row { border-left-color: #8b5cf6 !important; }
+        body.theme-trash .pipeline-modern-card,
+        body.theme-trash .script-row { border-left-color: #ef4444 !important; }
+
+        body.theme-video .pipeline-modern-card .pipeline-card-top { background: linear-gradient(135deg, rgba(6,182,212,0.12), rgba(14,116,144,0.05)) !important; }
+        body.theme-manager .pipeline-modern-card .pipeline-card-top { background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(109,40,217,0.05)) !important; }
+        body.theme-trash .pipeline-modern-card .pipeline-card-top { background: linear-gradient(135deg, rgba(239,68,68,0.10), rgba(127,29,29,0.04)) !important; }
+
+        .workspace, #managerWorkspace, #videoWorkspace, #trashWorkspace, #normalWorkspaceContainer {
+            transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+
+        .script-row, .pipeline-modern-card {
+            animation: cardEntranceSmooth 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        @keyframes cardEntranceSmooth {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-badge {
+            animation: badgeSoftPulse 4.5s ease-in-out infinite;
+        }
+        @keyframes badgeSoftPulse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-1px); }
+        }
+
+
         /* STUDIO EDITOR COMPONENTS */
         .fullscreen-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -622,7 +885,7 @@
         }
 
         .header-title { animation: softHeaderGlow 3s ease-in-out infinite; }
-        .creation-panel, .script-row, .analytics-card, .sub-manage-box, .empty-status-text {
+        .creation-panel, .analytics-card, .sub-manage-box, .empty-status-text {
             animation: softFadeSlideUp 0.28s ease both;
         }
         .tab-link:hover, .sub-tab-link:hover, .btn-pro:hover, .btn-header-action:hover, .btn-micro-back:hover, .action-submit:hover {
@@ -868,9 +1131,13 @@
             border: 1px solid rgba(147,197,253,0.22);
             white-space: nowrap;
         }
+        #accessUsersList {
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
         .access-grid-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 90px 90px 90px 90px 75px;
+            grid-template-columns: max-content max-content max-content 90px 90px 90px 90px 120px 75px;
             gap: 8px;
             align-items: center;
             padding: 10px;
@@ -878,6 +1145,11 @@
             border-radius: 10px;
             background: #fff;
             margin-bottom: 10px;
+            min-width: max-content;
+        }
+        .access-dynamic-input {
+            width: auto !important;
+            max-width: 360px;
         }
         .access-check-label {
             font-size: 12px;
@@ -893,6 +1165,349 @@
             font-weight: 900;
             color: #64748b;
             text-transform: uppercase;
+        }
+
+    
+
+        /* FINAL V3: bigger animated welcome + stronger smooth section opening */
+        .animated-welcome-banner {
+            font-size: 24px !important;
+            font-weight: 950 !important;
+            letter-spacing: 0.45px !important;
+            min-width: 310px !important;
+            text-align: left !important;
+            line-height: 1.15 !important;
+            transform-origin: left center !important;
+            animation: welcomeLargeFloat 2.4s ease-in-out infinite, welcomeColorFlowStrong 4.8s ease-in-out infinite !important;
+        }
+        @keyframes welcomeLargeFloat {
+            0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+            35% { transform: translateX(10px) translateY(-2px) scale(1.025); }
+            70% { transform: translateX(2px) translateY(1px) scale(1.01); }
+        }
+        @keyframes welcomeColorFlowStrong {
+            0%, 100% { color: #f8fafc; text-shadow: 0 0 10px rgba(255,255,255,0.22), 0 0 20px rgba(56,189,248,0.18); }
+            30% { color: #bae6fd; text-shadow: 0 0 14px rgba(56,189,248,0.42), 0 0 30px rgba(14,165,233,0.20); }
+            60% { color: #d9f99d; text-shadow: 0 0 14px rgba(132,204,22,0.38), 0 0 30px rgba(16,185,129,0.20); }
+        }
+        .view-switching-animate {
+            animation: premiumViewOpen 0.42s cubic-bezier(0.18, 0.85, 0.28, 1) both !important;
+        }
+        @keyframes premiumViewOpen {
+            0% { opacity: 0; transform: translateY(18px) scale(0.988); filter: blur(4px); }
+            55% { opacity: 1; transform: translateY(-2px) scale(1.002); filter: blur(0); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+        .view-list-animate > .script-row,
+        .view-list-animate > .empty-status-text {
+            animation: premiumCardOpen 0.38s cubic-bezier(0.18, 0.85, 0.28, 1) both !important;
+        }
+        .view-list-animate > .script-row:nth-child(1) { animation-delay: 0.03s !important; }
+        .view-list-animate > .script-row:nth-child(2) { animation-delay: 0.06s !important; }
+        .view-list-animate > .script-row:nth-child(3) { animation-delay: 0.09s !important; }
+        .view-list-animate > .script-row:nth-child(4) { animation-delay: 0.12s !important; }
+        .view-list-animate > .script-row:nth-child(n+5) { animation-delay: 0.15s !important; }
+        @keyframes premiumCardOpen {
+            from { opacity: 0; transform: translateY(16px) scale(0.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .nav-tabs, .creation-panel, .list-header-wrapper, .analytics-grid {
+            transition: transform 0.28s ease, opacity 0.28s ease;
+        }
+        body.theme-video .animated-welcome-banner { color: #e0faff !important; }
+        body.theme-manager .animated-welcome-banner { color: #f3e8ff !important; }
+        body.theme-trash .animated-welcome-banner { color: #fee2e2 !important; }
+        @media (max-width: 1250px) {
+            .animated-welcome-banner {
+                font-size: 19px !important;
+                min-width: auto !important;
+                text-align: center !important;
+            }
+        }
+
+
+        /* FINAL SMALL FIX: typing welcome animation + dark green Active Ready button */
+        .animated-welcome-banner {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            min-width: 0 !important;
+            max-width: 420px !important;
+            display: inline-block !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            font-size: 26px !important;
+            line-height: 1.2 !important;
+            font-weight: 900 !important;
+            letter-spacing: 0.2px !important;
+            color: #eaf6ff !important;
+            text-shadow: 0 0 14px rgba(125, 211, 252, 0.42), 0 2px 10px rgba(0,0,0,0.18) !important;
+            border-right: none !important;
+            animation: welcomeTypingLoop 4.8s steps(24, end) infinite, welcomeTypingGlow 2.8s ease-in-out infinite !important;
+        }
+
+        @keyframes welcomeTypingLoop {
+            0% { width: 0; }
+            14% { width: 0; }
+            48% { width: 350px; }
+            76% { width: 350px; }
+            100% { width: 0; }
+        }
+
+        @keyframes welcomeCursorBlink {
+            0%, 100% { border-right-color: rgba(125, 211, 252, 0.95); }
+            50% { border-right-color: transparent; }
+        }
+
+        @keyframes welcomeTypingGlow {
+            0%, 100% { opacity: 0.92; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-1px); }
+        }
+
+        .pipeline-ready-action-btn,
+        .btn-ready {
+            background: linear-gradient(135deg, #064e3b 0%, #047857 100%) !important;
+            color: #ffffff !important;
+            border-color: #065f46 !important;
+            box-shadow: 0 8px 18px rgba(4, 120, 87, 0.22) !important;
+        }
+
+        .pipeline-ready-action-btn:hover,
+        .btn-ready:hover {
+            background: linear-gradient(135deg, #022c22 0%, #065f46 100%) !important;
+            color: #ffffff !important;
+            border-color: #064e3b !important;
+            box-shadow: 0 12px 24px rgba(4, 120, 87, 0.34) !important;
+        }
+
+        .pipeline-ready-action-btn:active,
+        .btn-ready:active {
+            transform: translateY(0) scale(0.98) !important;
+        }
+
+        @media (max-width: 700px) {
+            .animated-welcome-banner {
+                font-size: 19px !important;
+                max-width: 280px !important;
+            }
+            @keyframes welcomeTypingLoop {
+                0% { width: 0; }
+                14% { width: 0; }
+                48% { width: 260px; }
+                76% { width: 260px; }
+                100% { width: 0; }
+            }
+        }
+
+    
+
+        /* FINAL DOUBLE-ANIMATION FIX: one clean animation only */
+        .creation-panel,
+        .script-row,
+        .analytics-card,
+        .sub-manage-box,
+        .empty-status-text {
+            animation: none !important;
+        }
+
+        .smooth-section-enter,
+        .view-switching-animate {
+            animation: none !important;
+        }
+
+        .smooth-list-enter > .script-row,
+        .smooth-list-enter > .empty-status-text,
+        .view-list-animate > .script-row,
+        .view-list-animate > .empty-status-text {
+            animation: none !important;
+            animation-delay: 0s !important;
+        }
+
+        .single-view-animate {
+            animation: singleCleanViewOpen 0.32s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+
+        .single-list-animate > .script-row,
+        .single-list-animate > .empty-status-text {
+            animation: singleCleanCardOpen 0.26s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+        .single-list-animate > .script-row:nth-child(1) { animation-delay: 0.01s !important; }
+        .single-list-animate > .script-row:nth-child(2) { animation-delay: 0.025s !important; }
+        .single-list-animate > .script-row:nth-child(3) { animation-delay: 0.04s !important; }
+        .single-list-animate > .script-row:nth-child(n+4) { animation-delay: 0.055s !important; }
+
+        @keyframes singleCleanViewOpen {
+            from { opacity: 0; transform: translateY(12px); filter: blur(1.5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        @keyframes singleCleanCardOpen {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated-welcome-banner {
+            border-right: none !important;
+            animation: welcomeTypingLoop 4.8s steps(24, end) infinite, welcomeTypingGlow 2.8s ease-in-out infinite !important;
+        }
+
+
+        /* FINAL HARD FIX: stop double card/list animations completely */
+        .script-row,
+        .creation-panel,
+        .analytics-card,
+        .sub-manage-box,
+        .empty-status-text,
+        .smooth-list-enter > *,
+        .view-list-animate > *,
+        .single-list-animate > * {
+            animation: none !important;
+            animation-delay: 0s !important;
+        }
+
+        .smooth-section-enter,
+        .view-switching-animate {
+            animation: none !important;
+        }
+
+        .single-view-animate {
+            animation: singleCleanViewOpenFinal 0.28s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+
+        @keyframes singleCleanViewOpenFinal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* MANAGER STATUS ROUTER CONTROL */
+        .manager-status-control-wrap {
+            width: 100%;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .manager-status-label {
+            font-size: 11px;
+            font-weight: 900;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: .25px;
+        }
+        .manager-status-select {
+            width: 100%;
+            min-width: 170px;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 800;
+            outline: none;
+            cursor: pointer;
+        }
+        .manager-status-select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.10);
+            background: #fff;
+        }
+
+
+        /* FINAL HOVER BUG FIX: stop hover flicker/jump on buttons */
+        .btn-header-action::after,
+        .btn-pro::after,
+        .pipeline-icon-btn::after,
+        .pipeline-top-action-btn::after,
+        .btn-alert::after,
+        .btn-editor::after,
+        .btn-micro-back::after,
+        .action-submit::after,
+        .sub-tab-link::after,
+        .tab-link::after {
+            content: none !important;
+            display: none !important;
+        }
+
+        .btn-header-action:hover,
+        .btn-pro:hover,
+        .pipeline-icon-btn:hover,
+        .pipeline-top-action-btn:hover,
+        .btn-alert:hover,
+        .btn-editor:hover,
+        .btn-micro-back:hover,
+        .action-submit:hover,
+        .sub-tab-link:hover,
+        .tab-link:hover {
+            transform: none !important;
+            filter: brightness(1.06);
+            box-shadow: 0 6px 14px rgba(15, 23, 42, 0.10) !important;
+        }
+
+        .btn-header-action:active,
+        .btn-pro:active,
+        .pipeline-icon-btn:active,
+        .pipeline-top-action-btn:active,
+        .btn-alert:active,
+        .btn-editor:active,
+        .btn-micro-back:active,
+        .action-submit:active,
+        .sub-tab-link:active,
+        .tab-link:active {
+            transform: scale(0.99) !important;
+        }
+
+        button,
+        .btn-header-action,
+        .btn-pro,
+        .pipeline-icon-btn,
+        .pipeline-top-action-btn,
+        .btn-alert,
+        .btn-editor,
+        .btn-micro-back,
+        .action-submit,
+        .sub-tab-link,
+        .tab-link {
+            backface-visibility: hidden;
+            transform-style: flat;
+            will-change: auto !important;
+        }
+
+        .btn-header-action {
+            overflow: visible !important;
+        }
+
+    
+
+
+        /* FINAL CONTROL EDITING PAUSE/RESUME BUTTON */
+        .btn-pause-resume-edit {
+            background: #e0f2fe !important;
+            color: #0369a1 !important;
+            border: 1px solid #7dd3fc !important;
+            padding: 4px 8px !important;
+            font-size: 10px !important;
+            line-height: 1.1 !important;
+            border-radius: 6px !important;
+            font-weight: 900 !important;
+            box-shadow: none !important;
+        }
+        .btn-pause-resume-edit:hover {
+            background: #bae6fd !important;
+            color: #075985 !important;
+            box-shadow: none !important;
+            filter: brightness(1.03) !important;
+        }
+
+        /* FINAL ACCESS VISIBILITY FIX */
+        .btn-header-action[hidden],
+        .locked-access-btn[hidden] {
+            display: none !important;
         }
 
     </style>
@@ -918,6 +1533,7 @@
 
 
     <header>
+        <div class="animated-welcome-banner" id="animatedWelcomeBanner">Welcome Manager</div>
         <div class="header-action-container">
             <div class="header-buttons-row" id="headerButtonsRow">
                 <button class="btn-header-action" id="videoDashboardNavBtn" onclick="toggleVideoProductionDashboardView(true)">🎬 Ready To Video</button>
@@ -1202,7 +1818,7 @@
 
         let pipelineDataStore = [];
         const DEFAULT_ACCESS_USERS = [
-            { name: "Manager", userId: "manager", password: "sabuj007", access: { scripts: true, video: true, trash: true, manager: true } }
+            { name: "Manager", userId: "manager", password: "sabuj007", access: { scripts: true, video: true, trash: true, manager: true, controlEditing: true } }
         ];
         let currentUserSession = null;
         let appConfigStore = {
@@ -1359,7 +1975,8 @@
                 scripts: !!(access && access.scripts),
                 video: !!(access && access.video),
                 trash: !!(access && access.trash),
-                manager: !!(access && access.manager)
+                manager: !!(access && access.manager),
+                controlEditing: !!(access && access.controlEditing)
             };
         }
 
@@ -1440,10 +2057,14 @@
             const trashBtn = document.getElementById('trashNavBtn');
             const logoutBtn = document.getElementById('logoutNavBtn');
             const userBadge = document.getElementById('currentUserBadge');
+            const welcomeBanner = document.getElementById('animatedWelcomeBanner');
 
             if (userBadge && currentUserSession) {
                 userBadge.style.display = 'inline-flex';
                 userBadge.innerText = `👤 ${currentUserSession.name || currentUserSession.userId}`;
+            }
+            if (welcomeBanner && currentUserSession) {
+                welcomeBanner.innerText = `Welcome ${currentUserSession.name || currentUserSession.userId}`;
             }
             if (logoutBtn) logoutBtn.style.display = 'inline-block';
 
@@ -1456,6 +2077,10 @@
             if (!button) return;
             button.classList.toggle('locked-access-btn', !allowed);
             button.title = allowed ? '' : 'Access denied for this user';
+            button.style.display = allowed ? '' : 'none';
+            button.hidden = !allowed;
+            button.disabled = !allowed;
+            button.setAttribute('aria-hidden', allowed ? 'false' : 'true');
         }
 
         function guardAccess(sectionKey) {
@@ -1498,6 +2123,8 @@
             document.getElementById('mainHeaderTitle').innerText = 'All Scripts';
             document.getElementById('currentUserBadge').style.display = 'none';
             document.getElementById('logoutNavBtn').style.display = 'none';
+            const welcomeBanner = document.getElementById('animatedWelcomeBanner');
+            if (welcomeBanner) welcomeBanner.innerText = 'Welcome';
             document.getElementById('headerButtonsRow').style.display = 'flex';
             document.getElementById('managerHeaderExitBtn').style.display = 'none';
             document.body.classList.add('auth-locked');
@@ -1533,11 +2160,16 @@
         }
 
         function getCurrentTimestamp() {
-            return new Date().toLocaleString('en-IN', { hour12: true });
+            return new Date().toLocaleString('en-IN', { hour12: true, timeZone: 'Asia/Kolkata' });
         }
 
         function getTodayDateStringMatch() {
-            return new Date().toLocaleDateString('en-IN');
+            return new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
+        }
+
+        function extractDateStringFromTimestamp(timestampValue) {
+            if (!timestampValue) return '';
+            return String(timestampValue).split(',')[0].trim();
         }
         function getTimestampSortValue(timestampValue) {
             if (!timestampValue) return 0;
@@ -1641,9 +2273,54 @@
             return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
 
+        function getCurrentEditingElapsedMillis(item) {
+            if (!item) return 0;
+            if (item.isEditingCurrentlyActive && item.editStartEpoch) {
+                return Math.max(0, Date.now() - Number(item.editStartEpoch || 0));
+            }
+            if (item.isEditingPaused) {
+                return Math.max(0, Number(item.editPausedElapsedMillis || 0));
+            }
+            return Math.max(0, Number(item.editPausedElapsedMillis || 0));
+        }
+
+        function isManagerAccountActive() {
+            return !!(currentUserSession && (String(currentUserSession.userId || '').toLowerCase() === 'manager' || currentUserSession.access.manager === true));
+        }
+
+        function hasControlEditingAccess() {
+            return isManagerAccountActive() || !!(currentUserSession && currentUserSession.access && currentUserSession.access.controlEditing === true);
+        }
+
+        function isAssignedEditorForItem(item) {
+            if (!currentUserSession || !item) return false;
+            const loginName = String(currentUserSession.name || '').trim().toLowerCase();
+            const loginUser = String(currentUserSession.userId || '').trim().toLowerCase();
+            const assigned = String(item.assignedMember || '').trim().toLowerCase();
+            return assigned && (assigned === loginName || assigned === loginUser);
+        }
+
+        function canCurrentUserOperateEditing(item) {
+            return hasControlEditingAccess() || isAssignedEditorForItem(item);
+        }
+
+        function showEditingAccessDeniedMessage(item) {
+            showModalDialogue(
+                "Editing Access Denied",
+                `This video is assigned to ${item && item.assignedMember ? item.assignedMember : 'another editor'}. Only that editor, Manager, or a user with Control Editing permission can start/complete it.`,
+                '',
+                `<button class="btn-alert btn-confirm-save" onclick="dismissModalOverlay()">OK</button>`
+            );
+        }
+
         function executeStartEditingSequence(id) {
             const target = pipelineDataStore.find(i => i.id === id);
             if (!target) return;
+
+            if (!canCurrentUserOperateEditing(target)) {
+                showEditingAccessDeniedMessage(target);
+                return;
+            }
 
             if (target.isEditingCurrentlyActive === true) {
                 showModalDialogue(
@@ -1662,7 +2339,7 @@
                     !item.isExpired &&
                     item.stage === 'completed' &&
                     item.videoStage === 'pending' &&
-                    item.isEditingCurrentlyActive === true &&
+                    (item.isEditingCurrentlyActive === true || item.isEditingPaused === true) &&
                     String(item.assignedMember || '').toLowerCase() === String(target.assignedMember || '').toLowerCase();
             });
 
@@ -1676,6 +2353,8 @@
                 return;
             }
 
+            target.editPausedElapsedMillis = 0;
+            target.isEditingPaused = false;
             target.editStartEpoch = Date.now();
             target.editStartClockTime = getCurrentTimestamp();
             target.editEndClockTime = null;
@@ -1693,7 +2372,8 @@
             cardTimerIntervalThreads[id] = setInterval(() => {
                 const element = document.getElementById(`ticker_${id}`);
                 if (element) {
-                    const elapsed = Date.now() - startEpoch;
+                    const liveItem = pipelineDataStore.find(x => x.id === id);
+                    const elapsed = liveItem ? getCurrentEditingElapsedMillis(liveItem) : (Date.now() - startEpoch);
                     element.innerText = formatMillisecondsToTimerString(elapsed);
                 }
             }, 1000);
@@ -1714,12 +2394,67 @@
             });
         }
 
+        function executePauseResumeEditingSequence(id) {
+            const target = pipelineDataStore.find(i => i.id === id);
+            if (!target) return;
+
+            if (!hasControlEditingAccess()) {
+                showModalDialogue(
+                    "Control Editing Required",
+                    "Only Manager or a user with Control Editing permission can stop/resume an editing timer.",
+                    '',
+                    `<button class="btn-alert btn-confirm-save" onclick="dismissModalOverlay()">OK</button>`
+                );
+                return;
+            }
+
+            if (target.isEditingCurrentlyActive === true) {
+                target.editPausedElapsedMillis = getCurrentEditingElapsedMillis(target);
+                target.isEditingCurrentlyActive = false;
+                target.isEditingPaused = true;
+                clearAndWipeActiveTickerThread(id);
+            } else if (target.isEditingPaused === true) {
+                const activeSameEmployeeScript = pipelineDataStore.find(item => {
+                    return item.id !== id &&
+                        !item.isDeleted &&
+                        !item.isExpired &&
+                        item.stage === 'completed' &&
+                        item.videoStage === 'pending' &&
+                        item.isEditingCurrentlyActive === true &&
+                        String(item.assignedMember || '').toLowerCase() === String(target.assignedMember || '').toLowerCase();
+                });
+
+                if (activeSameEmployeeScript) {
+                    showModalDialogue(
+                        "Editing Already Running",
+                        `${target.assignedMember || 'This employee'} already has one active editing task running. Please complete or pause that first before resuming this one.`,
+                        '',
+                        `<button class="btn-alert btn-confirm-save" onclick="dismissModalOverlay()">OK</button>`
+                    );
+                    return;
+                }
+
+                target.editStartEpoch = Date.now() - Number(target.editPausedElapsedMillis || 0);
+                target.isEditingCurrentlyActive = true;
+                target.isEditingPaused = false;
+                launchLiveInlineCardTickerThread(id, target.editStartEpoch);
+            }
+
+            saveDemoDataStateSnapshot();
+            syncPipelineInfrastructure();
+        }
+
         function executeEditDoneSequence(id) {
             const target = pipelineDataStore.find(i => i.id === id);
-            if (!target || !target.isEditingCurrentlyActive) return;
+            if (!target || (!target.isEditingCurrentlyActive && !target.isEditingPaused)) return;
+
+            if (!canCurrentUserOperateEditing(target)) {
+                showEditingAccessDeniedMessage(target);
+                return;
+            }
 
             const stopEpoch = Date.now();
-            const elapsedMillis = stopEpoch - target.editStartEpoch;
+            const elapsedMillis = getCurrentEditingElapsedMillis(target);
 
             // Clear operational intervals thread safeties
             clearAndWipeActiveTickerThread(id);
@@ -1727,6 +2462,8 @@
             target.editEndClockTime = getCurrentTimestamp();
             target.totalElapsedTimeFormatted = formatMillisecondsToTimerString(elapsedMillis);
             target.isEditingCurrentlyActive = false;
+            target.isEditingPaused = false;
+            target.editPausedElapsedMillis = elapsedMillis;
 
             // Compute values for clean notification output metrics
             let totalSeconds = Math.floor(elapsedMillis / 1000);
@@ -1784,7 +2521,9 @@
                 editStartClockTime: null,
                 editEndClockTime: null,
                 totalElapsedTimeFormatted: null,
-                isEditingCurrentlyActive: false
+                isEditingCurrentlyActive: false,
+                isEditingPaused: false,
+                editPausedElapsedMillis: 0
             };
 
             pipelineDataStore.unshift(logRecord);
@@ -1891,23 +2630,30 @@
         }
 
         function evaluateAutoExpirationTrackingLifecycle() {
+            // India / West Bengal time rule:
+            // Archive Logs and Ready Video move to Global Trash only after Kolkata midnight.
+            // Pending Video never auto-moves while editing is pending; it stays pending until Edit Done is clicked.
             const todayStr = getTodayDateStringMatch();
             let stateMutated = false;
 
             pipelineDataStore = pipelineDataStore.map(item => {
-                if (!item.isDeleted && !item.isExpired) {
-                    if (item.stage === 'completed' && item.videoStage !== 'ready') {
-                        if (item.completedTimestamp && !item.completedTimestamp.includes(todayStr)) {
-                            item.isExpired = true;
-                            item.expiredTimestamp = getCurrentTimestamp();
-                            item.expiredFromContext = 'archive';
-                            stateMutated = true;
-                        }
-                    } else if (item.stage === 'completed' && item.videoStage === 'ready') {
-                        if (item.videoCreatedTimestamp && !item.videoCreatedTimestamp.includes(todayStr)) {
+                if (!item.isDeleted && !item.isExpired && item.stage === 'completed') {
+                    const videoState = item.videoStage || 'none';
+
+                    if (videoState === 'ready') {
+                        const videoDate = extractDateStringFromTimestamp(item.videoCreatedTimestamp);
+                        if (videoDate && videoDate !== todayStr) {
                             item.isExpired = true;
                             item.expiredTimestamp = getCurrentTimestamp();
                             item.expiredFromContext = 'video';
+                            stateMutated = true;
+                        }
+                    } else if (videoState === 'none') {
+                        const archiveDate = extractDateStringFromTimestamp(item.completedTimestamp);
+                        if (archiveDate && archiveDate !== todayStr) {
+                            item.isExpired = true;
+                            item.expiredTimestamp = getCurrentTimestamp();
+                            item.expiredFromContext = 'archive';
                             stateMutated = true;
                         }
                     }
@@ -1976,8 +2722,8 @@
                     rowElement.className = 'script-row pipeline-modern-card';
 
                     const topActionMarkup = executionViewContext === 'active'
-                        ? `<button class="pipeline-top-action-btn" onclick="shiftScriptStage('${safeId}', 'ready')">☐ Ready</button>`
-                        : `<button class="pipeline-top-action-btn" onclick="openMarkDoneSelectionPopup('${safeId}')">☐ Mark Done</button>`;
+                        ? `<button class="pipeline-top-action-btn pipeline-ready-action-btn" onclick="shiftScriptStage('${safeId}', 'ready')">☐ Ready</button>`
+                        : `<button class="pipeline-top-action-btn pipeline-markdone-action-btn" onclick="openMarkDoneSelectionPopup('${safeId}')">☐ Mark Done</button>`;
 
                     rowElement.innerHTML = `
                         <div class="pipeline-card-body">
@@ -2084,8 +2830,8 @@
                 } else if (item.videoStage === 'pending') {
                     // Calculate immediate current snapshot string values safely
                     let runningTickerClockStringValue = "00:00:00";
-                    if (item.editStartEpoch) {
-                        const difference = Date.now() - item.editStartEpoch;
+                    if (item.editStartEpoch || item.isEditingPaused) {
+                        const difference = getCurrentEditingElapsedMillis(item);
                         runningTickerClockStringValue = formatMillisecondsToTimerString(difference);
                     }
 
@@ -2115,18 +2861,25 @@
                     // After this script starts, only this script's Start Editing button becomes locked.
                     // Different employees can start different scripts at the same time.
                     // Same employee cannot start another script while one timer is already running.
-                    const isDoneActionAllowed = item.isEditingCurrentlyActive === true;
-                    const startButtonLocked = item.isEditingCurrentlyActive === true;
-                    const startButtonDisabledAttribute = startButtonLocked ? 'disabled style="opacity:0.65; cursor:not-allowed;" title="This script timer is already running"' : '';
-                    const startActionTriggerHTML = startButtonLocked ? '' : `onclick="executeStartEditingSequence('${safeId}')"`;
+                    const canOperateThisVideo = canCurrentUserOperateEditing(item);
+                    if (canOperateThisVideo) {
+                        const isDoneActionAllowed = item.isEditingCurrentlyActive === true;
+                        const startButtonLocked = item.isEditingCurrentlyActive === true;
+                        const startButtonDisabledAttribute = startButtonLocked ? 'disabled style="opacity:0.65; cursor:not-allowed;" title="This script timer is already running"' : '';
+                        const startActionTriggerHTML = startButtonLocked ? '' : `onclick="executeStartEditingSequence('${safeId}')"`;
 
-                    const doneActionTriggerHTML = isDoneActionAllowed ? `onclick="executeEditDoneSequence('${safeId}')"` : '';
-                    const doneButtonDisabledInlineStyle = !isDoneActionAllowed ? 'style="opacity: 0.5; cursor: not-allowed;" title="Please click Start Editing first"' : '';
+                        const doneActionTriggerHTML = isDoneActionAllowed ? `onclick="executeEditDoneSequence('${safeId}')"` : '';
+                        const doneButtonDisabledInlineStyle = !isDoneActionAllowed ? 'style="opacity: 0.5; cursor: not-allowed;" title="Please click Start Editing first"' : '';
+                        const pauseResumeControlMarkup = (hasControlEditingAccess() && (item.isEditingCurrentlyActive === true || item.isEditingPaused === true))
+                            ? `<button class="btn-pro btn-pause-resume-edit" onclick="executePauseResumeEditingSequence('${safeId}')">${item.isEditingPaused ? 'Resume' : 'Stop'}</button>`
+                            : '';
 
-                    actionsContainerMarkup += `
-                        <button class="btn-pro btn-start-edit" ${startActionTriggerHTML} ${startButtonDisabledAttribute}>Start Editing ⏱️</button>
-                        <button class="btn-pro btn-edit-done" ${doneActionTriggerHTML} ${doneButtonDisabledInlineStyle}>Edit Done ✓</button>
-                    `;
+                        actionsContainerMarkup += `
+                            <button class="btn-pro btn-start-edit" ${startActionTriggerHTML} ${startButtonDisabledAttribute}>Start Editing ⏱️</button>
+                            ${pauseResumeControlMarkup}
+                            <button class="btn-pro btn-edit-done" ${doneActionTriggerHTML} ${doneButtonDisabledInlineStyle}>Edit Done ✓</button>
+                        `;
+                    }
                 }
 
                 row.innerHTML = `
@@ -2159,7 +2912,7 @@
             });
 
             if (dataset.length === 0) {
-                trashGridContainer.innerHTML = `<div class="empty-status-text">No timeout automatic 24H expired tracking assets detected inside storage context nodes.</div>`;
+                trashGridContainer.innerHTML = `<div class="empty-status-text">No midnight global trash records found inside storage context nodes.</div>`;
                 return;
             }
 
@@ -2174,7 +2927,7 @@
                         <div style="font-size:12px; color:#475569; margin: 4px 0; background:#f8fafc; padding:6px 12px; border-radius:6px;">
                             📦 Product Ref: <strong>${escapeHTML(item.assignedProduct || 'None')}</strong> | 👤 Script Allocated To: <strong>${escapeHTML(item.assignedMember || 'None')}</strong><br>
                             📥 Completed Loop Initial Influx Timestamp: ${escapeHTML(item.completedTimestamp)}<br>
-                            ⏱ Automated 24H Expiration Timeout Log Stamp: <span style="color:var(--accent-orange); font-weight:700;">${escapeHTML(item.expiredTimestamp)}</span>
+                            ⏱ Midnight Global Trash Move Stamp: <span style="color:var(--accent-orange); font-weight:700;">${escapeHTML(item.expiredTimestamp)}</span>
                         </div>
                     `;
                 } else {
@@ -2183,7 +2936,7 @@
                             📦 Product Target: <strong>${escapeHTML(item.assignedProduct)}</strong> | 👤 Bound Editor Context: <strong>${escapeHTML(item.assignedMember)}</strong><br>
                             📥 Allocation: ${escapeHTML(item.completedTimestamp)} | 🎬 Video Ready Completion Stamp: ${escapeHTML(item.videoCreatedTimestamp)}<br>
                             ⚡ Total Saved Production Time: <strong>${escapeHTML(item.totalElapsedTimeFormatted || 'N/A')}</strong><br>
-                            ⏱ Automated 24H Expiration Timeout Log Stamp: <span style="color:var(--accent-orange); font-weight:700;">${escapeHTML(item.expiredTimestamp)}</span>
+                            ⏱ Midnight Global Trash Move Stamp: <span style="color:var(--accent-orange); font-weight:700;">${escapeHTML(item.expiredTimestamp)}</span>
                         </div>
                     `;
                 }
@@ -2628,6 +3381,11 @@
             return String(user && user.userId || '').toLowerCase() === 'manager' || String(user && user.name || '').toLowerCase() === 'manager';
         }
 
+        function getAccessDynamicInputWidth(value, minWidth = 112, maxWidth = 360) {
+            const length = String(value || '').length;
+            return Math.max(minWidth, Math.min(maxWidth, (length * 9) + 44));
+        }
+
         function renderAccessManagementPanel() {
             ensureDefaultAccessUsers();
             const list = document.getElementById('accessUsersList');
@@ -2636,18 +3394,20 @@
                 const safeIndex = index;
                 const access = normalizeAccessObject(user.access);
                 const isManagerProtected = isProtectedManagerUser(user);
+                const lockAttr = isManagerProtected ? 'disabled style="opacity:0.62; cursor:not-allowed;" title="Manager account settings are protected"' : '';
                 const deleteButtonMarkup = isManagerProtected
                     ? `<button class="btn-pro btn-view" disabled style="opacity:0.55; cursor:not-allowed;">Protected</button>`
                     : `<button class="btn-pro btn-delete" onclick="deleteAccessUser(${safeIndex})">Delete</button>`;
                 return `
                     <div class="access-grid-row">
-                        <input class="input-control" style="padding:8px;" value="${escapeAttr(user.name || '')}" onchange="updateAccessUserField(${safeIndex}, 'name', this.value)">
-                        <input class="input-control" style="padding:8px;" value="${escapeAttr(user.userId || '')}" onchange="updateAccessUserField(${safeIndex}, 'userId', this.value)">
-                        <input class="input-control" style="padding:8px;" value="${escapeAttr(user.password || '')}" onchange="updateAccessUserField(${safeIndex}, 'password', this.value)">
-                        <label class="access-check-label"><input type="checkbox" ${access.scripts ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'scripts', this.checked)"> Scripts</label>
-                        <label class="access-check-label"><input type="checkbox" ${access.video ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'video', this.checked)"> Video</label>
-                        <label class="access-check-label"><input type="checkbox" ${access.trash ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'trash', this.checked)"> Trash</label>
-                        <label class="access-check-label"><input type="checkbox" ${access.manager ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'manager', this.checked)"> Manager</label>
+                        <input class="input-control access-dynamic-input" style="padding:8px; min-width:${getAccessDynamicInputWidth(user.name || '', 112, 360)}px;" value="${escapeAttr(user.name || '')}" onchange="updateAccessUserField(${safeIndex}, 'name', this.value)" ${lockAttr}>
+                        <input class="input-control access-dynamic-input" style="padding:8px; min-width:${getAccessDynamicInputWidth(user.userId || '', 112, 360)}px;" value="${escapeAttr(user.userId || '')}" onchange="updateAccessUserField(${safeIndex}, 'userId', this.value)" ${lockAttr}>
+                        <input class="input-control access-dynamic-input" style="padding:8px; min-width:${getAccessDynamicInputWidth(user.password || '', 96, 260)}px;" value="${escapeAttr(user.password || '')}" onchange="updateAccessUserField(${safeIndex}, 'password', this.value)" ${lockAttr}>
+                        <label class="access-check-label"><input type="checkbox" ${access.scripts ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'scripts', this.checked)" ${lockAttr}> Scripts</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.video ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'video', this.checked)" ${lockAttr}> Video</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.trash ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'trash', this.checked)" ${lockAttr}> Trash</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.manager ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'manager', this.checked)" ${lockAttr}> Manager</label>
+                        <label class="access-check-label"><input type="checkbox" ${access.controlEditing ? 'checked' : ''} onchange="updateAccessUserPermission(${safeIndex}, 'controlEditing', this.checked)" ${lockAttr}> Control Editing</label>
                         ${deleteButtonMarkup}
                     </div>
                 `;
@@ -2657,6 +3417,7 @@
         function updateAccessUserField(index, field, value) {
             ensureDefaultAccessUsers();
             if (!appConfigStore.users[index]) return;
+            if (isProtectedManagerUser(appConfigStore.users[index])) { renderAccessManagementPanel(); return; }
             const cleaned = String(value || '').trim();
             if (!cleaned) { renderAccessManagementPanel(); return; }
             if (field === 'userId') {
@@ -2672,6 +3433,7 @@
         function updateAccessUserPermission(index, permissionKey, checked) {
             ensureDefaultAccessUsers();
             if (!appConfigStore.users[index]) return;
+            if (isProtectedManagerUser(appConfigStore.users[index])) { renderAccessManagementPanel(); return; }
             appConfigStore.users[index].access = normalizeAccessObject(appConfigStore.users[index].access);
             appConfigStore.users[index].access[permissionKey] = checked;
             saveDemoDataStateSnapshot();
@@ -2687,7 +3449,7 @@
             if (!name || !userId || !password) { alert('Please fill name, user ID and password.'); return; }
             const duplicate = appConfigStore.users.some(u => String(u.userId || '').toLowerCase() === userId.toLowerCase());
             if (duplicate) { alert('This User ID already exists.'); return; }
-            appConfigStore.users.push({ name, userId, password, access: { scripts: false, video: true, trash: true, manager: false } });
+            appConfigStore.users.push({ name, userId, password, access: { scripts: false, video: true, trash: true, manager: false, controlEditing: false } });
             document.getElementById('newAccessName').value = '';
             document.getElementById('newAccessUserId').value = '';
             document.getElementById('newAccessPassword').value = '';
@@ -3151,6 +3913,161 @@
             });
         }
 
+        function getManagerOperationalStatusKey(item) {
+            if (item.isDeleted) return 'manual-trash';
+            if (item.isExpired) return 'global-trash';
+            if (item.stage === 'pending') return 'active-list';
+            if (item.stage === 'ready') return 'ready-list';
+            if (item.stage === 'completed' && item.videoStage === 'pending') return 'pending-video';
+            if (item.stage === 'completed' && item.videoStage === 'ready') return 'ready-video';
+            if (item.stage === 'completed') return 'archive-logs';
+            return 'active-list';
+        }
+
+        function getManagerOperationalStatusLabel(item) {
+            const statusMap = {
+                'active-list': 'Active List',
+                'ready-list': 'Ready List',
+                'archive-logs': 'Archive Logs',
+                'pending-video': 'Pending Video',
+                'ready-video': 'Ready Video',
+                'manual-trash': 'Manual Trash',
+                'global-trash': 'Global Trash'
+            };
+            return statusMap[getManagerOperationalStatusKey(item)] || 'Active List';
+        }
+
+        function buildManagerStatusDropdownMarkup(item) {
+            const currentStatus = getManagerOperationalStatusKey(item);
+            const safeId = escapeJSString(item.id);
+            const options = [
+                ['active-list', 'Active List'],
+                ['ready-list', 'Ready List'],
+                ['archive-logs', 'Archive Logs'],
+                ['pending-video', 'Pending Video'],
+                ['ready-video', 'Ready Video'],
+                ['manual-trash', 'Manual Trash'],
+                ['global-trash', 'Global Trash']
+            ];
+            const optionsMarkup = options.map(([value, label]) => `<option value="${value}" ${value === currentStatus ? 'selected' : ''}>${label}</option>`).join('');
+            return `
+                <div class="manager-status-control-wrap">
+                    <div class="manager-status-label">Status</div>
+                    <select class="manager-status-select" data-current-status="${currentStatus}" onchange="requestManagerStatusChange('${safeId}', this.value, this)">
+                        ${optionsMarkup}
+                    </select>
+                </div>
+            `;
+        }
+
+        function requestManagerStatusChange(id, nextStatus, selectElement) {
+            const target = pipelineDataStore.find(item => item.id === id);
+            if (!target) return;
+            const currentStatus = getManagerOperationalStatusKey(target);
+            if (nextStatus === currentStatus) return;
+
+            const statusNames = {
+                'active-list': 'Active List',
+                'ready-list': 'Ready List',
+                'archive-logs': 'Archive Logs',
+                'pending-video': 'Pending Video',
+                'ready-video': 'Ready Video',
+                'manual-trash': 'Manual Trash',
+                'global-trash': 'Global Trash'
+            };
+
+            showModalDialogue(
+                "Confirm Status Change",
+                `Are you sure you want to move this script from ${statusNames[currentStatus] || currentStatus} to ${statusNames[nextStatus] || nextStatus}?`,
+                '',
+                `
+                <button class="btn-alert btn-cancel-alert" onclick="dismissModalOverlay(); syncPipelineInfrastructure();">Cancel</button>
+                <button class="btn-alert btn-confirm-save" onclick="applyManagerStatusChange('${escapeJSString(id)}', '${escapeJSString(nextStatus)}')">Confirm</button>
+                `
+            );
+
+            if (selectElement) selectElement.value = currentStatus;
+        }
+
+        function applyManagerStatusChange(id, nextStatus) {
+            pipelineDataStore = pipelineDataStore.map(item => {
+                if (item.id !== id) return item;
+
+                clearAndWipeActiveTickerThread(item.id);
+
+                const nowStamp = getCurrentTimestamp();
+                item.__removeCompletely = false;
+                item.archiveLogPurged = false;
+                item.videoLogPurged = false;
+                item.isEditingCurrentlyActive = false;
+                item.editStartEpoch = null;
+
+                if (nextStatus !== 'manual-trash') {
+                    item.isDeleted = false;
+                    item.deletedTimestamp = null;
+                }
+                if (nextStatus !== 'global-trash') {
+                    item.isExpired = false;
+                    item.expiredTimestamp = null;
+                    item.expiredFromContext = null;
+                }
+
+                if (nextStatus === 'active-list') {
+                    item.stage = 'pending';
+                    item.videoStage = 'none';
+                    item.readyTimestamp = null;
+                    item.completedTimestamp = null;
+                    item.videoCreatedTimestamp = null;
+                } else if (nextStatus === 'ready-list') {
+                    item.stage = 'ready';
+                    item.videoStage = 'none';
+                    item.readyTimestamp = nowStamp;
+                    item.completedTimestamp = null;
+                    item.videoCreatedTimestamp = null;
+                } else if (nextStatus === 'archive-logs') {
+                    item.stage = 'completed';
+                    item.videoStage = 'none';
+                    item.completedTimestamp = nowStamp;
+                    item.videoCreatedTimestamp = null;
+                } else if (nextStatus === 'pending-video') {
+                    item.stage = 'completed';
+                    item.videoStage = 'pending';
+                    item.completedTimestamp = nowStamp;
+                    item.videoCreatedTimestamp = null;
+                    if (!item.assignedProduct) item.assignedProduct = appConfigStore.products[0] || 'None';
+                    if (!item.assignedMember || item.assignedMember === 'None') item.assignedMember = appConfigStore.members[0] || 'None';
+                } else if (nextStatus === 'ready-video') {
+                    item.stage = 'completed';
+                    item.videoStage = 'ready';
+                    item.completedTimestamp = item.completedTimestamp || nowStamp;
+                    item.videoCreatedTimestamp = nowStamp;
+                    item.editEndClockTime = item.editEndClockTime || nowStamp;
+                    item.totalElapsedTimeFormatted = item.totalElapsedTimeFormatted || '00:00:00';
+                    if (!item.assignedProduct) item.assignedProduct = appConfigStore.products[0] || 'None';
+                    if (!item.assignedMember || item.assignedMember === 'None') item.assignedMember = appConfigStore.members[0] || 'None';
+                } else if (nextStatus === 'manual-trash') {
+                    item.isDeleted = true;
+                    item.deletedTimestamp = nowStamp;
+                    item.isExpired = false;
+                    item.expiredTimestamp = null;
+                    item.expiredFromContext = null;
+                } else if (nextStatus === 'global-trash') {
+                    item.isDeleted = false;
+                    item.deletedTimestamp = null;
+                    item.isExpired = true;
+                    item.expiredTimestamp = nowStamp;
+                    item.expiredFromContext = (item.stage === 'completed' && item.videoStage === 'ready') ? 'video' : 'archive';
+                }
+
+                item.sortTimestamp = Date.now();
+                return item;
+            });
+
+            dismissModalOverlay();
+            saveDemoDataStateSnapshot();
+            syncPipelineInfrastructure();
+        }
+
         function renderManagerTrashLists(viewContext) {
             const grid = document.getElementById('managerGridContainer');
             const titleEl = document.getElementById('managerListTitle');
@@ -3184,12 +4101,33 @@
                 const row = document.createElement('div');
                 row.className = 'script-row';
                 const safeId = escapeJSString(item.id);
+                const operationalStatusLabel = getManagerOperationalStatusLabel(item);
+                const managerStatusDropdownMarkup = buildManagerStatusDropdownMarkup(item);
                 
+                const hasManagerProductValue = item.assignedProduct && String(item.assignedProduct).trim() && String(item.assignedProduct).trim().toLowerCase() !== 'none';
+                const hasManagerMemberValue = item.assignedMember && String(item.assignedMember).trim() && String(item.assignedMember).trim().toLowerCase() !== 'none';
+                const hasManagerDurationValue = item.totalElapsedTimeFormatted && String(item.totalElapsedTimeFormatted).trim() && String(item.totalElapsedTimeFormatted).trim() !== '00:00:00';
+
+                const managerProductColor = hasManagerProductValue ? (appConfigStore.productColors[item.assignedProduct] || '#10b981') : '#10b981';
+                const managerMemberColor = hasManagerMemberValue ? (appConfigStore.memberColors[item.assignedMember] || '#3b82f6') : '#3b82f6';
+
+                let managerBadgeMarkup = '';
+                if (hasManagerProductValue) {
+                    managerBadgeMarkup += `<span class="custom-render-badge" style="background: rgba(16,185,129,0.05); color:${managerProductColor}; border:1px solid ${managerProductColor}26;">📦 Product: ${escapeHTML(item.assignedProduct)}</span>`;
+                }
+                if (hasManagerMemberValue) {
+                    managerBadgeMarkup += `<span class="custom-render-badge" style="background: rgba(59,130,246,0.05); color:${managerMemberColor}; border:1px solid ${managerMemberColor}26;">👤 Video By: ${escapeHTML(item.assignedMember)}</span>`;
+                }
+                if (hasManagerDurationValue) {
+                    managerBadgeMarkup += `<span class="custom-render-badge" style="background: rgba(245,158,11,0.06); color:#d97706; border:1px solid rgba(245,158,11,0.24);">⏱️ Time: ${escapeHTML(item.totalElapsedTimeFormatted)}</span>`;
+                }
+
                 let extraInfo = `
                     <div style="font-size:12px; color:#64748b; margin-top:2px;">
-                        Status State Flag: <strong>${item.isDeleted ? 'Deleted (Manual)' : (item.isExpired ? 'Expired (Auto 24h)' : 'Active System Asset')}</strong>
+                        Status State Flag: <strong>${escapeHTML(operationalStatusLabel)}</strong>
                         | Influx Time Inbound: ${escapeHTML(item.createdTimestamp || 'N/A')}
-                    </div>`;
+                    </div>
+                    ${managerBadgeMarkup ? `<div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-top:7px;">${managerBadgeMarkup}</div>` : ''}`;
 
                 let restoreBtn = '';
                 if (viewContext === 'trash' || viewContext === 'global') {
@@ -3203,10 +4141,11 @@
                         ${extraInfo}
                         <div class="row-snippet" style="margin-top:2px;">${escapeHTML(item.body)}</div>
                     </div>
-                    <div class="row-buttons">
+                    <div class="row-buttons" style="min-width:190px; align-items:stretch; flex-direction:column;">
                         <button class="btn-pro btn-view" onclick="bootStudioOverlay('${safeId}')">Modify / View</button>
                         ${restoreBtn}
                         <button class="btn-pro btn-delete" onclick="executeAuthenticatedPermanentWipeAction('${safeId}', '${escapeJSString(viewContext)}')">Purge Forever</button>
+                        ${managerStatusDropdownMarkup}
                     </div>
                 `;
                 grid.appendChild(row);
@@ -3274,9 +4213,231 @@
 
         document.getElementById('fullscreenTitle').addEventListener('input', trackEditorStateChanges);
 
+
+
+        // --- PROFESSIONAL THEME ROUTER: changes top header color by active section ---
+        function applyProfessionalSectionTheme(themeName) {
+            const themes = ['theme-scripts', 'theme-video', 'theme-manager', 'theme-trash'];
+            document.body.classList.remove(...themes);
+            document.body.classList.add(`theme-${themeName || 'scripts'}`);
+        }
+
+        const __originalToggleVideoProductionDashboardView = toggleVideoProductionDashboardView;
+        toggleVideoProductionDashboardView = function(activateVideoMode) {
+            __originalToggleVideoProductionDashboardView(activateVideoMode);
+            applyProfessionalSectionTheme(activateVideoMode ? 'video' : 'scripts');
+        };
+
+        const __originalToggleTrashBinWorkspaceView = toggleTrashBinWorkspaceView;
+        toggleTrashBinWorkspaceView = function(activateTrashMode) {
+            __originalToggleTrashBinWorkspaceView(activateTrashMode);
+            applyProfessionalSectionTheme(activateTrashMode ? 'trash' : 'scripts');
+        };
+
+        const __originalEnterManagerMode = enterManagerMode;
+        enterManagerMode = function() {
+            __originalEnterManagerMode();
+            if (isManagerMode) applyProfessionalSectionTheme('manager');
+        };
+
+        const __originalExitManagerMode = exitManagerMode;
+        exitManagerMode = function() {
+            __originalExitManagerMode();
+            applyProfessionalSectionTheme('scripts');
+        };
+
+        const __originalChangeWorkspaceView = changeWorkspaceView;
+        changeWorkspaceView = function(view) {
+            __originalChangeWorkspaceView(view);
+            if (!isManagerMode && !isVideoDashboardMode && !isTrashWorkspaceMode) applyProfessionalSectionTheme('scripts');
+        };
+
+        applyProfessionalSectionTheme('scripts');
+
+
         // Run Firebase Live Instance Setup Configurations
         startRealtimeFirebaseSync();
         setTimeout(triggerActiveScreenAnimation, 60);
+    
+
+        /* FINAL V3: stronger view transition router */
+        function runPremiumViewSwitchAnimation() {
+            const targets = [
+                'normalWorkspaceContainer',
+                'videoWorkspace',
+                'trashWorkspace',
+                'managerWorkspace',
+                'gridContainer',
+                'videoGridContainer',
+                'trashGridContainer',
+                'managerGridContainer',
+                'analyticsGridContainer',
+                'employeeUpdateGridContainer'
+            ];
+            targets.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.remove('view-switching-animate', 'view-list-animate');
+                void el.offsetWidth;
+                if (id.toLowerCase().includes('grid') || id.includes('Container')) el.classList.add('view-list-animate');
+                else el.classList.add('view-switching-animate');
+            });
+        }
+
+        const __v3OriginalChangeWorkspaceView = changeWorkspaceView;
+        changeWorkspaceView = function(view) {
+            __v3OriginalChangeWorkspaceView(view);
+            runPremiumViewSwitchAnimation();
+        };
+
+        const __v3OriginalChangeVideoWorkspaceSubView = changeVideoWorkspaceSubView;
+        changeVideoWorkspaceSubView = function(view) {
+            __v3OriginalChangeVideoWorkspaceSubView(view);
+            runPremiumViewSwitchAnimation();
+        };
+
+        const __v3OriginalChangeTrashWorkspaceSubView = changeTrashWorkspaceSubView;
+        changeTrashWorkspaceSubView = function(view) {
+            __v3OriginalChangeTrashWorkspaceSubView(view);
+            runPremiumViewSwitchAnimation();
+        };
+
+        const __v3OriginalChangeManagerView = changeManagerView;
+        changeManagerView = function(view) {
+            __v3OriginalChangeManagerView(view);
+            runPremiumViewSwitchAnimation();
+        };
+
+        const __v3OriginalChangeManagerTrashSubView = changeManagerTrashSubView;
+        changeManagerTrashSubView = function(view) {
+            __v3OriginalChangeManagerTrashSubView(view);
+            runPremiumViewSwitchAnimation();
+        };
+
+        const __v3OriginalToggleVideoProductionDashboardView = toggleVideoProductionDashboardView;
+        toggleVideoProductionDashboardView = function(activateVideoMode) {
+            __v3OriginalToggleVideoProductionDashboardView(activateVideoMode);
+            runPremiumViewSwitchAnimation();
+        };
+
+        const __v3OriginalToggleTrashBinWorkspaceView = toggleTrashBinWorkspaceView;
+        toggleTrashBinWorkspaceView = function(activateTrashMode) {
+            __v3OriginalToggleTrashBinWorkspaceView(activateTrashMode);
+            runPremiumViewSwitchAnimation();
+        };
+
+
+
+        /* FINAL HARD DOUBLE-ANIMATION FIX: only one section animation on manual navigation */
+        let __manualNavigationAnimationLock = false;
+        let __lastAnimatedViewSignature = '';
+
+        runPremiumViewSwitchAnimation = function() { return; };
+        triggerSmoothSectionAnimation = function() { return; };
+        triggerSmoothListAnimation = function() { return; };
+
+        function getActiveViewSignature() {
+            if (isManagerMode) return 'manager:' + managerViewContext + ':' + managerTrashSubContext;
+            if (isVideoDashboardMode) return 'video:' + videoViewContext;
+            if (isTrashWorkspaceMode) return 'trash:' + trashViewContext;
+            return 'scripts:' + executionViewContext;
+        }
+
+        function runSingleCleanViewAnimation(force = false) {
+            const signature = getActiveViewSignature();
+            if (!force && signature === __lastAnimatedViewSignature) return;
+            __lastAnimatedViewSignature = signature;
+
+            const viewTargets = [
+                'normalWorkspaceContainer',
+                'videoWorkspace',
+                'trashWorkspace',
+                'managerWorkspace',
+                'managerAnalyticsSection',
+                'managerEmployeeUpdateSection',
+                'managerDropdownsConfigSection',
+                'managerAccessControlSection',
+                'managerListSection'
+            ];
+
+            const listTargets = [
+                'gridContainer',
+                'videoGridContainer',
+                'trashGridContainer',
+                'managerGridContainer',
+                'analyticsGridContainer',
+                'employeeUpdateGridContainer'
+            ];
+
+            [...viewTargets, ...listTargets].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.remove('smooth-section-enter', 'smooth-list-enter', 'view-switching-animate', 'view-list-animate', 'single-view-animate', 'single-list-animate');
+            });
+
+            requestAnimationFrame(() => {
+                viewTargets.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el || el.style.display === 'none') return;
+                    el.classList.add('single-view-animate');
+                });
+            });
+        }
+
+        const __hardFinalSyncPipelineInfrastructure = syncPipelineInfrastructure;
+        syncPipelineInfrastructure = function() {
+            return __hardFinalSyncPipelineInfrastructure();
+        };
+
+        function runManualNavigationAnimationOnce() {
+            clearTimeout(__manualNavigationAnimationLock);
+            __manualNavigationAnimationLock = setTimeout(() => {
+                runSingleCleanViewAnimation(true);
+            }, 20);
+        }
+
+        const __hardFinalChangeWorkspaceView = changeWorkspaceView;
+        changeWorkspaceView = function(view) {
+            __hardFinalChangeWorkspaceView(view);
+            runManualNavigationAnimationOnce();
+        };
+
+        const __hardFinalChangeVideoWorkspaceSubView = changeVideoWorkspaceSubView;
+        changeVideoWorkspaceSubView = function(view) {
+            __hardFinalChangeVideoWorkspaceSubView(view);
+            runManualNavigationAnimationOnce();
+        };
+
+        const __hardFinalChangeTrashWorkspaceSubView = changeTrashWorkspaceSubView;
+        changeTrashWorkspaceSubView = function(view) {
+            __hardFinalChangeTrashWorkspaceSubView(view);
+            runManualNavigationAnimationOnce();
+        };
+
+        const __hardFinalChangeManagerView = changeManagerView;
+        changeManagerView = function(view) {
+            __hardFinalChangeManagerView(view);
+            runManualNavigationAnimationOnce();
+        };
+
+        const __hardFinalChangeManagerTrashSubView = changeManagerTrashSubView;
+        changeManagerTrashSubView = function(view) {
+            __hardFinalChangeManagerTrashSubView(view);
+            runManualNavigationAnimationOnce();
+        };
+
+        const __hardFinalToggleVideoProductionDashboardView = toggleVideoProductionDashboardView;
+        toggleVideoProductionDashboardView = function(activateVideoMode) {
+            __hardFinalToggleVideoProductionDashboardView(activateVideoMode);
+            runManualNavigationAnimationOnce();
+        };
+
+        const __hardFinalToggleTrashBinWorkspaceView = toggleTrashBinWorkspaceView;
+        toggleTrashBinWorkspaceView = function(activateTrashMode) {
+            __hardFinalToggleTrashBinWorkspaceView(activateTrashMode);
+            runManualNavigationAnimationOnce();
+        };
+
     </script>
 </body>
 </html>
