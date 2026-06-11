@@ -4056,7 +4056,7 @@
                 item.isEditingCurrentlyActive = false;
                 item.isEditingPaused = false;
                 item.editStartEpoch = null;
-                item.sortTimestamp = Date.now();
+                if (!item.sortTimestamp) item.sortTimestamp = getTimestampSortValue(item.createdTimestamp) || Date.now();
                 return item;
             });
             dismissModalOverlay();
@@ -4269,32 +4269,26 @@
                 if (nextStatus === 'active-list') {
                     item.stage = 'pending';
                     item.videoStage = 'none';
-                    item.readyTimestamp = null;
-                    item.completedTimestamp = null;
-                    item.videoCreatedTimestamp = null;
+                    // Keep old timestamps/sortTimestamp so returning a script restores its original list position.
                 } else if (nextStatus === 'ready-list') {
                     item.stage = 'ready';
                     item.videoStage = 'none';
-                    item.readyTimestamp = nowStamp;
-                    item.completedTimestamp = null;
-                    item.videoCreatedTimestamp = null;
+                    item.readyTimestamp = item.readyTimestamp || nowStamp;
                 } else if (nextStatus === 'archive-logs') {
                     item.stage = 'completed';
                     item.videoStage = 'none';
-                    item.completedTimestamp = nowStamp;
-                    item.videoCreatedTimestamp = null;
+                    item.completedTimestamp = item.completedTimestamp || nowStamp;
                 } else if (nextStatus === 'pending-video') {
                     item.stage = 'completed';
                     item.videoStage = 'pending';
-                    item.completedTimestamp = nowStamp;
-                    item.videoCreatedTimestamp = null;
+                    item.completedTimestamp = item.completedTimestamp || nowStamp;
                     if (!item.assignedProduct) item.assignedProduct = appConfigStore.products[0] || 'None';
                     if (!item.assignedMember || item.assignedMember === 'None') item.assignedMember = appConfigStore.members[0] || 'None';
                 } else if (nextStatus === 'ready-video') {
                     item.stage = 'completed';
                     item.videoStage = 'ready';
                     item.completedTimestamp = item.completedTimestamp || nowStamp;
-                    item.videoCreatedTimestamp = nowStamp;
+                    item.videoCreatedTimestamp = item.videoCreatedTimestamp || nowStamp;
                     item.editEndClockTime = item.editEndClockTime || nowStamp;
                     item.totalElapsedTimeFormatted = item.totalElapsedTimeFormatted || '00:00:00';
                     if (!item.assignedProduct) item.assignedProduct = appConfigStore.products[0] || 'None';
@@ -4313,7 +4307,7 @@
                     item.expiredFromContext = (item.stage === 'completed' && item.videoStage === 'ready') ? 'video' : 'archive';
                 }
 
-                item.sortTimestamp = Date.now();
+                if (!item.sortTimestamp) item.sortTimestamp = getTimestampSortValue(item.createdTimestamp) || Date.now();
                 return item;
             });
 
@@ -4416,14 +4410,7 @@
                         item.isExpired = false;
                         item.expiredTimestamp = null;
                         item.expiredFromContext = null;
-                        
-                        // Prevent instant re-expiration by resetting timestamps to current day
-                        const todayTS = getCurrentTimestamp();
-                        if (item.stage === 'completed' && item.videoStage !== 'ready') {
-                            item.completedTimestamp = todayTS;
-                        } else if (item.stage === 'completed' && item.videoStage === 'ready') {
-                            item.videoCreatedTimestamp = todayTS;
-                        }
+                        // Keep original timestamps and sortTimestamp so restored records return to their old position.
                     }
                 }
                 return item;
